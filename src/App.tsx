@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 
 type Ticker = {
@@ -12,39 +13,83 @@ type Story = {
   title: string
   summary: string
   pulse: string
+  source?: string
 }
 
-const marketTickers: Ticker[] = [
+type CommunityPulse = {
+  label: string
+  value: string
+  detail: string
+}
+
+type DashboardState = {
+  stocks: Ticker[]
+  crypto: Ticker[]
+  stories: Story[]
+  aiBriefs: Story[]
+  socialHeat: CommunityPulse[]
+  updatedAt: string
+  mode: 'live' | 'demo'
+}
+
+const demoStocks: Ticker[] = [
   { symbol: 'NVDA', price: '$1,184.20', change: '+5.4%', sentiment: 'AI infra leader' },
   { symbol: 'MSFT', price: '$468.15', change: '+2.1%', sentiment: 'Cloud + copilots' },
   { symbol: 'SMCI', price: '$1,041.88', change: '+7.8%', sentiment: 'Server momentum' },
+]
+
+const demoCrypto: Ticker[] = [
   { symbol: 'BTC', price: '$104,820', change: '+3.9%', sentiment: 'Risk-on flows' },
   { symbol: 'ETH', price: '$5,260', change: '+4.6%', sentiment: 'L2 & ETF buzz' },
   { symbol: 'SOL', price: '$214', change: '+6.2%', sentiment: 'Creator economy lift' },
 ]
 
-const topStories: Story[] = [
+const demoStories: Story[] = [
   {
     tag: 'Stocks',
     title: 'Momentum crowds into AI infrastructure and profitable automation leaders',
     summary:
-      'A fresh wave of buyers is rotating into semiconductor, cloud, and enterprise software names that can show real revenue from AI products.',
+      'Semiconductor, cloud, and enterprise software names remain the center of attention as buyers chase real AI revenue.',
     pulse: 'High conviction',
+    source: 'Market narrative',
   },
   {
     tag: 'Crypto',
-    title: 'Liquidity is back, but the market is rewarding utility over pure hype',
+    title: 'Utility is outperforming pure hype as liquidity returns to digital assets',
     summary:
-      'Bitcoin remains the macro anchor while Ethereum, Solana, and data-focused protocols gain attention from builders and social traders.',
+      'Bitcoin stays dominant while Ethereum, Solana, and data-driven ecosystems pull in more builders and social traders.',
     pulse: 'Volatile upside',
+    source: 'Crypto desk',
   },
   {
     tag: 'AI',
-    title: 'Agents, creator tools, and vertical copilots are winning the narrative',
+    title: 'Agents and vertical copilots are shaping the next breakout product cycle',
     summary:
-      'The next breakout products are blending distribution, community, and workflow automation rather than chasing raw model novelty alone.',
+      'The market is rewarding products that connect model capability with clear workflow outcomes and distribution.',
     pulse: 'Fast-moving',
+    source: 'AI watch',
   },
+]
+
+const demoAiBriefs: Story[] = [
+  {
+    tag: 'AI Signal',
+    title: 'Enterprise copilots are becoming distribution channels, not just features',
+    summary: 'Teams are bundling automation, analytics, and collaboration into sticky operating layers.',
+    pulse: 'Adoption climb',
+  },
+  {
+    tag: 'Builder',
+    title: 'Creator tooling is merging brand storytelling with agent-powered production',
+    summary: 'Fast content systems are becoming essential for social-first launches and community retention.',
+    pulse: 'Creator demand',
+  },
+]
+
+const demoSocialHeat: CommunityPulse[] = [
+  { label: 'Investor buzz', value: '92', detail: 'AI infrastructure and crypto utility dominate discussion.' },
+  { label: 'Creator trend', value: '+38%', detail: 'Short-form explainers and live market recap clips are accelerating.' },
+  { label: 'Community loops', value: '14', detail: 'High-value feedback loops between traders, founders, and marketers.' },
 ]
 
 const productSignals = [
@@ -54,22 +99,178 @@ const productSignals = [
   },
   {
     title: 'Social heat layer',
-    copy: 'Map how communities, founders, traders, and creators are moving attention before the mainstream catches up.',
+    copy: 'Map how communities, founders, traders, and creators move attention before the mainstream catches up.',
   },
   {
     title: 'Marketing launchpad',
-    copy: 'Turn trend discovery into campaign ideas, creator prompts, and community activation for your next big launch.',
+    copy: 'Turn trend discovery into campaign ideas, creator prompts, and community activation for your next launch.',
   },
 ]
 
-const activityFeed = [
-  'AI chips + cloud tooling dominate watchlists in North America',
-  'Memecoins cool while infrastructure tokens keep social volume',
-  'Retail attention spikes around autonomous agents and creator automation',
-  'Brands experiment with real-time investor + community storytelling',
+const featureRoadmap = [
+  'Live watchlists with market alerts',
+  'Social profiles for creators and analysts',
+  'AI-generated campaign briefs from trend data',
+  'Community rooms around sectors, tokens, and narratives',
 ]
 
+const formatCurrency = (value: number) =>
+  new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: value >= 1000 ? 0 : 2,
+  }).format(value)
+
+const formatChange = (value: number) => `${value >= 0 ? '+' : ''}${value.toFixed(2)}%`
+
+async function fetchCryptoTickers(): Promise<Ticker[]> {
+  const response = await fetch(
+    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=3&page=1&sparkline=false',
+  )
+
+  if (!response.ok) throw new Error('Crypto feed unavailable')
+
+  const data = (await response.json()) as Array<{
+    symbol: string
+    current_price: number
+    price_change_percentage_24h: number
+    name: string
+  }>
+
+  return data.map((coin) => ({
+    symbol: coin.symbol.toUpperCase(),
+    price: formatCurrency(coin.current_price),
+    change: formatChange(coin.price_change_percentage_24h ?? 0),
+    sentiment: `${coin.name} momentum`,
+  }))
+}
+
+async function fetchBusinessStories(): Promise<Story[]> {
+  const response = await fetch('https://www.reddit.com/r/investing/hot.json?limit=3')
+  if (!response.ok) throw new Error('News feed unavailable')
+
+  const json = (await response.json()) as {
+    data?: {
+      children?: Array<{
+        data: {
+          title: string
+          selftext?: string
+          subreddit_name_prefixed?: string
+          score?: number
+        }
+      }>
+    }
+  }
+
+  return (
+    json.data?.children?.slice(0, 3).map(({ data }, index) => ({
+      tag: index === 0 ? 'Stocks' : index === 1 ? 'Crypto' : 'Markets',
+      title: data.title,
+      summary: data.selftext?.slice(0, 160) || 'Community conversation shaping the day’s market narrative.',
+      pulse: `${data.score ?? 0} community points`,
+      source: data.subreddit_name_prefixed,
+    })) ?? []
+  )
+}
+
+async function fetchAiStories(): Promise<Story[]> {
+  const response = await fetch('https://hn.algolia.com/api/v1/search?query=AI&tags=story&hitsPerPage=2')
+  if (!response.ok) throw new Error('AI feed unavailable')
+
+  const json = (await response.json()) as {
+    hits?: Array<{
+      title?: string
+      story_text?: string
+      points?: number
+      author?: string
+    }>
+  }
+
+  return (
+    json.hits?.map((item) => ({
+      tag: 'AI',
+      title: item.title || 'AI discussion trending now',
+      summary: item.story_text?.slice(0, 160) || 'Builders and operators are tracking a fast-moving AI conversation.',
+      pulse: `${item.points ?? 0} points`,
+      source: item.author ? `by ${item.author}` : 'Hacker News',
+    })) ?? []
+  )
+}
+
+const initialState: DashboardState = {
+  stocks: demoStocks,
+  crypto: demoCrypto,
+  stories: demoStories,
+  aiBriefs: demoAiBriefs,
+  socialHeat: demoSocialHeat,
+  updatedAt: 'Demo mode',
+  mode: 'demo',
+}
+
 function App() {
+  const [dashboard, setDashboard] = useState<DashboardState>(initialState)
+
+  useEffect(() => {
+    let cancelled = false
+
+    const loadLiveData = async () => {
+      try {
+        const [crypto, stories, aiBriefs] = await Promise.all([
+          fetchCryptoTickers(),
+          fetchBusinessStories(),
+          fetchAiStories(),
+        ])
+
+        if (cancelled) return
+
+        setDashboard({
+          stocks: demoStocks,
+          crypto: crypto.length ? crypto : demoCrypto,
+          stories: stories.length ? stories : demoStories,
+          aiBriefs: aiBriefs.length ? aiBriefs : demoAiBriefs,
+          socialHeat: [
+            {
+              label: 'Investor buzz',
+              value: `${88 + Math.floor(Math.random() * 8)}`,
+              detail: 'Cross-market attention is clustering around AI, Bitcoin, and infrastructure.',
+            },
+            {
+              label: 'Creator trend',
+              value: `+${30 + Math.floor(Math.random() * 15)}%`,
+              detail: 'Explainer clips and daily market storytelling are climbing across social channels.',
+            },
+            {
+              label: 'Community loops',
+              value: `${10 + Math.floor(Math.random() * 8)}`,
+              detail: 'Recurring conversations between traders, founders, and marketers are compounding.',
+            },
+          ],
+          updatedAt: new Date().toLocaleString(),
+          mode: 'live',
+        })
+      } catch {
+        if (!cancelled) {
+          setDashboard(initialState)
+        }
+      }
+    }
+
+    loadLiveData()
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const combinedTickers = useMemo(
+    () => [...dashboard.stocks, ...dashboard.crypto],
+    [dashboard.stocks, dashboard.crypto],
+  )
+
+  const pulseScore = useMemo(() => {
+    const total = dashboard.socialHeat.reduce((sum, item) => sum + Number.parseInt(item.value, 10), 0)
+    return Number.isNaN(total) ? 92 : Math.min(99, Math.max(80, Math.round(total / dashboard.socialHeat.length)))
+  }, [dashboard.socialHeat])
+
   return (
     <div className="page-shell">
       <header className="hero-card">
@@ -80,6 +281,7 @@ function App() {
           </div>
           <div className="topbar-links">
             <a href="#signals">Signals</a>
+            <a href="#markets">Markets</a>
             <a href="#stories">News Pulse</a>
             <a href="#network">Community</a>
           </div>
@@ -90,44 +292,51 @@ function App() {
             <p className="eyebrow">Market intelligence × social momentum</p>
             <h1>Vibrant trend intelligence for stocks, crypto, and AI culture.</h1>
             <p className="hero-text">
-              avbyte is a bold marketing and social networking concept that blends
-              live market stories, breakout assets, and community energy into one
-              immersive dashboard.
+              avbyte blends market data, narrative discovery, and social energy into a
+              premium dashboard for traders, creators, founders, and marketers.
             </p>
             <div className="hero-actions">
-              <a className="primary-btn" href="#network">
-                Explore the concept
+              <a className="primary-btn" href="#markets">
+                View live dashboard
               </a>
-              <a className="secondary-btn" href="#stories">
-                See trend highlights
+              <a className="secondary-btn" href="#network">
+                See community vision
               </a>
             </div>
             <ul className="hero-metrics">
               <li>
-                <strong>24/7</strong>
-                <span>cross-market pulse</span>
+                <strong>{dashboard.mode === 'live' ? 'LIVE' : 'DEMO'}</strong>
+                <span>data mode</span>
               </li>
               <li>
-                <strong>3</strong>
-                <span>trend engines</span>
+                <strong>{combinedTickers.length}</strong>
+                <span>tracked movers</span>
               </li>
               <li>
-                <strong>∞</strong>
-                <span>campaign angles</span>
+                <strong>{dashboard.aiBriefs.length}</strong>
+                <span>AI briefs</span>
               </li>
             </ul>
           </section>
 
           <aside className="hero-panel">
             <div className="panel-glow" />
-            <p className="panel-label">Trending now</p>
+            <p className="panel-label">Pulse engine</p>
             <div className="signal-orb">
               <span>Pulse</span>
-              <strong>92</strong>
+              <strong>{pulseScore}</strong>
+            </div>
+            <div className="status-row">
+              <span className={`status-pill ${dashboard.mode}`}>{dashboard.mode} mode</span>
+              <span className="updated-at">Updated: {dashboard.updatedAt}</span>
             </div>
             <ul className="activity-list">
-              {activityFeed.map((item) => (
-                <li key={item}>{item}</li>
+              {dashboard.socialHeat.map((item) => (
+                <li key={item.label}>
+                  <strong>{item.label}</strong>
+                  <span>{item.value}</span>
+                  <p>{item.detail}</p>
+                </li>
               ))}
             </ul>
           </aside>
@@ -135,8 +344,8 @@ function App() {
       </header>
 
       <main>
-        <section className="ticker-strip" aria-label="Trending market tickers">
-          {marketTickers.map((ticker) => (
+        <section className="ticker-strip" id="markets" aria-label="Trending market tickers">
+          {combinedTickers.map((ticker) => (
             <article key={ticker.symbol} className="ticker-card">
               <div>
                 <p className="ticker-symbol">{ticker.symbol}</p>
@@ -144,7 +353,7 @@ function App() {
               </div>
               <div className="ticker-values">
                 <strong>{ticker.price}</strong>
-                <span>{ticker.change}</span>
+                <span className={ticker.change.startsWith('-') ? 'negative' : ''}>{ticker.change}</span>
               </div>
             </article>
           ))}
@@ -171,12 +380,35 @@ function App() {
             <h2>What is moving the conversation right now</h2>
           </div>
           <div className="story-grid">
-            {topStories.map((story) => (
+            {dashboard.stories.map((story) => (
               <article key={story.title} className="story-card">
                 <span className="story-tag">{story.tag}</span>
                 <h3>{story.title}</h3>
                 <p>{story.summary}</p>
-                <strong>{story.pulse}</strong>
+                <div className="story-footer">
+                  <strong>{story.pulse}</strong>
+                  <span>{story.source}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="section-block ai-layout">
+          <div className="section-heading">
+            <p className="eyebrow">AI briefings</p>
+            <h2>Fresh AI stories for builders and growth teams</h2>
+          </div>
+          <div className="ai-grid">
+            {dashboard.aiBriefs.map((story) => (
+              <article key={story.title} className="glass-card ai-card">
+                <span className="story-tag">{story.tag}</span>
+                <h3>{story.title}</h3>
+                <p>{story.summary}</p>
+                <div className="story-footer">
+                  <strong>{story.pulse}</strong>
+                  <span>{story.source}</span>
+                </div>
               </article>
             ))}
           </div>
@@ -190,6 +422,11 @@ function App() {
               avbyte is positioned like a premium digital venue: part insight terminal,
               part media brand, part social graph for trend-chasing communities.
             </p>
+            <div className="roadmap-list">
+              {featureRoadmap.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
           </div>
           <div className="network-card">
             <p className="mini-label">Audience</p>

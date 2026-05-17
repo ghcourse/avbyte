@@ -5,6 +5,15 @@ A vibrant React + Vite site for a marketing and social networking concept focuse
 - trending stocks
 - crypto news
 - AI news
+- community and creator momentum
+
+## Highlights
+
+- premium neon/glassmorphism landing experience
+- live-friendly crypto and news fetching in the browser
+- graceful demo fallback when external feeds are unavailable
+- GitHub Pages-compatible Vite configuration
+- automatic deployment with GitHub Actions
 
 ## Run locally
 
@@ -26,8 +35,8 @@ This repo is configured for GitHub Pages under:
 - Repo: `ghcourse/avbyte`
 - Base path: `/avbyte/`
 
-After building, deploy the `dist/` output with GitHub Pages or a Pages workflow.
+After enabling **Settings → Pages → Source: GitHub Actions**, every push to `main` auto-deploys.
 
-## Concept
+## Notes
 
-avbyte is designed as a bold, premium-feeling market intelligence brand that blends finance, AI culture, and community momentum.
+Because GitHub Pages is a static host, the app uses browser-side public feeds and falls back to polished demo content if a provider blocks requests or rate-limits traffic.
