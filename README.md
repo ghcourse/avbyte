@@ -35,7 +35,7 @@ This repo is configured for GitHub Pages under:
 - Repo: `ghcourse/avbyte`
 - Base path: `/avbyte/`
 
-After enabling **Settings → Pages → Source: GitHub Actions**, every push to `main` auto-deploys.
+After enabling **Settings → Pages → Source: GitHub Actions**, every push to `main` auto-deploys from the fresh Vite `dist/` build output.
 
 ## Notes
 
