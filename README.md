@@ -9,8 +9,8 @@ A vibrant React + Vite site for a marketing and social networking concept focuse
 
 ## Highlights
 
-- premium neon/glassmorphism landing experience
-- live-friendly crypto and news fetching in the browser
+- premium neon/glassmorphism dashboard with tabbed navigation
+- live browser-side stock, crypto, market, and AI feed integrations
 - graceful demo fallback when external feeds are unavailable
 - GitHub Pages-compatible Vite configuration
 - automatic deployment with GitHub Actions
@@ -40,3 +40,9 @@ After enabling **Settings → Pages → Source: GitHub Actions**, every push to 
 ## Notes
 
 Because GitHub Pages is a static host, the app uses browser-side public feeds and falls back to polished demo content if a provider blocks requests or rate-limits traffic.
+
+Current live feed sources used by the dashboard:
+- Yahoo Finance public search endpoint for stock quotes
+- CoinGecko public markets endpoint for crypto pricing
+- Reddit JSON feeds for market discussion headlines
+- Hacker News Algolia API for AI-related stories
