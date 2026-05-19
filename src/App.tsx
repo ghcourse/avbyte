@@ -36,7 +36,7 @@ type DashboardFeeds = {
   mode: FeedMode
 }
 
-type TabKey = 'overview' | 'stocks' | 'crypto' | 'ai' | 'social'
+type TabKey = 'overview' | 'stocks' | 'crypto' | 'ai' | 'social' | 'workbench'
 
 const tabs: Array<{ key: TabKey; label: string; eyebrow: string }> = [
   { key: 'overview', label: 'Overview', eyebrow: 'Command view' },
@@ -44,6 +44,7 @@ const tabs: Array<{ key: TabKey; label: string; eyebrow: string }> = [
   { key: 'crypto', label: 'Crypto', eyebrow: 'Token momentum' },
   { key: 'ai', label: 'AI', eyebrow: 'Builder watch' },
   { key: 'social', label: 'Social', eyebrow: 'Audience heat' },
+  { key: 'workbench', label: 'Workbench', eyebrow: 'Platform research' },
 ]
 
 const formatCurrency = (value: number) =>
@@ -217,6 +218,104 @@ const roadmap = [
   'Tabbed watchlists for stocks, crypto, and AI narratives',
   'Pinned story modules for campaign-ready market recaps',
   'Social networking layer for traders, creators, and founders',
+]
+
+const workbenchPrinciples: SignalCard[] = [
+  {
+    label: 'Platform model',
+    value: 'Shell + apps',
+    detail: 'One secure workbench shell hosting many bounded AI apps.',
+  },
+  {
+    label: 'Agent model',
+    value: 'Per app',
+    detail: 'Each app gets its own agent profile, prompts, memory policy, and tools.',
+  },
+  {
+    label: 'Security',
+    value: 'Scoped access',
+    detail: 'Permissions, tools, data, and secrets are isolated by tenant and app.',
+  },
+  {
+    label: 'Build strategy',
+    value: 'Modular monolith',
+    detail: 'Start simple, then split services or remote modules only when needed.',
+  },
+]
+
+const workbenchPillars: Array<{ title: string; summary: string }> = [
+  {
+    title: 'Workbench shell',
+    summary:
+      'Shared login, navigation, app catalog, usage tracking, audit, and tenant-aware policy controls.',
+  },
+  {
+    title: 'App registry',
+    summary:
+      'Manifest-driven module registration so apps can be enabled, versioned, and rolled out independently.',
+  },
+  {
+    title: 'Per-app agents',
+    summary:
+      'Each app has its own prompts, model defaults, workflows, memory scope, and safety boundaries.',
+  },
+  {
+    title: 'Capability-based tools',
+    summary:
+      'Apps declare only the tools they need, with scoped credentials and approval rules.',
+  },
+]
+
+const workbenchBenefits: Array<{ title: string; summary: string }> = [
+  {
+    title: 'Cleaner UX',
+    summary: 'Users pick the exact AI app they need instead of fighting one giant generic assistant.',
+  },
+  {
+    title: 'Safer governance',
+    summary: 'Bounded apps are easier to secure, audit, and control than a universal super-agent.',
+  },
+  {
+    title: 'Faster product expansion',
+    summary: 'New apps can plug into the platform without rewriting the whole stack.',
+  },
+  {
+    title: 'Tenant flexibility',
+    summary: 'Different customers can get different apps, connectors, branding, and policies.',
+  },
+]
+
+const workbenchPhases: Array<{ phase: string; summary: string; bullets: string[] }> = [
+  {
+    phase: 'Phase 1 · MVP',
+    summary: 'Establish the shell, registry, per-app agents, and tool governance.',
+    bullets: [
+      'Login and tenant-aware app visibility',
+      'App manifest and registry model',
+      'Per-app agent profiles',
+      'Capability-based tool access',
+    ],
+  },
+  {
+    phase: 'Phase 2 · Hardening',
+    summary: 'Add enterprise control surfaces and richer integrations.',
+    bullets: [
+      'Connector management',
+      'Approval workflows',
+      'Admin console and quotas',
+      'Shared knowledge integrations',
+    ],
+  },
+  {
+    phase: 'Phase 3 · Ecosystem',
+    summary: 'Open the platform up carefully for remote modules or packaged plugins.',
+    bullets: [
+      'Remote modules',
+      'Module SDK',
+      'Marketplace/distribution model',
+      'Independent deploy paths where justified',
+    ],
+  },
 ]
 
 const initialFeeds: DashboardFeeds = {
@@ -681,6 +780,116 @@ function App() {
               ))}
             </div>
           </section>
+        )}
+
+        {activeTab === 'workbench' && (
+          <div className="content-grid overview-grid">
+            <section className="content-card story-stack">
+              <div className="card-head">
+                <div>
+                  <p className="section-kicker">Avbytes workbench</p>
+                  <h3>One platform shell. Many focused AI apps.</h3>
+                </div>
+                <span className="badge-soft">Recommended direction</span>
+              </div>
+
+              <div className="story-list">
+                <article className="story-card">
+                  <div className="story-topline">
+                    <span className="story-tag">Positioning</span>
+                    <span className="story-pulse">Platform strategy</span>
+                  </div>
+                  <h4>Build Avbytes as a modular AI workbench, not a single super-agent</h4>
+                  <p>
+                    Users log into one secure shell, see the apps available to them, and launch the
+                    exact AI experience they need. Each app owns its own agent, tools, permissions,
+                    workflows, and scoped data access.
+                  </p>
+                  <span className="story-source">Workbench architecture</span>
+                </article>
+
+                {workbenchPillars.map((pillar) => (
+                  <article className="story-card" key={pillar.title}>
+                    <div className="story-topline">
+                      <span className="story-tag">Core block</span>
+                      <span className="story-pulse">Foundation</span>
+                    </div>
+                    <h4>{pillar.title}</h4>
+                    <p>{pillar.summary}</p>
+                    <span className="story-source">Platform pillar</span>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="content-card compact-card">
+              <div className="card-head">
+                <div>
+                  <p className="section-kicker">Key principles</p>
+                  <h3>What makes the model work</h3>
+                </div>
+              </div>
+              <div className="signal-grid">
+                {workbenchPrinciples.map((signal) => (
+                  <article className="metric-card" key={signal.label}>
+                    <span>{signal.label}</span>
+                    <strong>{signal.value}</strong>
+                    <p>{signal.detail}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="content-card">
+              <div className="card-head">
+                <div>
+                  <p className="section-kicker">Why this approach</p>
+                  <h3>Benefits of a module-based workbench</h3>
+                </div>
+                <span className="badge-soft">Product advantage</span>
+              </div>
+              <div className="story-list ai-grid">
+                {workbenchBenefits.map((benefit) => (
+                  <article className="story-card" key={benefit.title}>
+                    <div className="story-topline">
+                      <span className="story-tag">Benefit</span>
+                      <span className="story-pulse">High leverage</span>
+                    </div>
+                    <h4>{benefit.title}</h4>
+                    <p>{benefit.summary}</p>
+                    <span className="story-source">Strategic outcome</span>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="content-card">
+              <div className="card-head">
+                <div>
+                  <p className="section-kicker">Rollout plan</p>
+                  <h3>How Avbytes can ship this in phases</h3>
+                </div>
+                <span className="badge-soft">Execution path</span>
+              </div>
+              <div className="story-list">
+                {workbenchPhases.map((phase) => (
+                  <article className="story-card" key={phase.phase}>
+                    <div className="story-topline">
+                      <span className="story-tag">Roadmap</span>
+                      <span className="story-pulse">{phase.phase}</span>
+                    </div>
+                    <h4>{phase.summary}</h4>
+                    <ul className="bullet-list">
+                      {phase.bullets.map((bullet) => (
+                        <li key={bullet}>{bullet}</li>
+                      ))}
+                    </ul>
+                    <span className="story-source">Implementation plan</span>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </div>
         )}
       </section>
     </main>
