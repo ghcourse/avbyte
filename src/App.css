@@ -260,6 +260,19 @@ ul {
   padding: 18px;
 }
 
+.workbench-image-card {
+  gap: 16px;
+}
+
+.workbench-preview-image {
+  width: 100%;
+  margin-top: 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 24px 60px rgba(1, 4, 15, 0.35);
+}
+
 .signal-card span,
 .metric-card span,
 .ticker-card span,

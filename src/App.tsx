@@ -793,6 +793,24 @@ function App() {
                 <span className="badge-soft">Recommended direction</span>
               </div>
 
+              <article className="story-card workbench-image-card">
+                <div className="story-topline">
+                  <span className="story-tag">Sample visual</span>
+                  <span className="story-pulse">Browser concept</span>
+                </div>
+                <h4>How the Workbench could look in the browser</h4>
+                <p>
+                  A concept view showing the shell, app catalog, role-based visibility, active
+                  agent workspace, and phased rollout story in one browser-native console.
+                </p>
+                <img
+                  className="workbench-preview-image"
+                  src={`${import.meta.env.BASE_URL}workbench-preview.svg`}
+                  alt="Sample browser mockup of the Avbytes AI workbench"
+                />
+                <span className="story-source">Concept preview</span>
+              </article>
+
               <div className="story-list">
                 <article className="story-card">
                   <div className="story-topline">

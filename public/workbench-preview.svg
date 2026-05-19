@@ -1,0 +1,119 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="1000" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#071121"/>
+      <stop offset="0.5" stop-color="#0A1530"/>
+      <stop offset="1" stop-color="#050814"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="rgba(255,255,255,0.22)"/>
+      <stop offset="1" stop-color="rgba(255,255,255,0.04)"/>
+    </linearGradient>
+    <linearGradient id="pill" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#62F5FF"/>
+      <stop offset="1" stop-color="#9E5CFF"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="50"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1000" rx="36" fill="url(#bg)"/>
+  <circle cx="180" cy="140" r="130" fill="#00E1FF" fill-opacity="0.12" filter="url(#blur)"/>
+  <circle cx="1380" cy="120" r="170" fill="#A552FF" fill-opacity="0.15" filter="url(#blur)"/>
+  <circle cx="1080" cy="830" r="200" fill="#476FFF" fill-opacity="0.14" filter="url(#blur)"/>
+
+  <rect x="42" y="34" width="1516" height="72" rx="22" fill="#0B1328" stroke="rgba(255,255,255,0.08)"/>
+  <rect x="70" y="54" width="40" height="40" rx="12" fill="url(#pill)"/>
+  <text x="83" y="80" fill="#071121" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="900">A</text>
+  <text x="128" y="73" fill="#78EEFF" font-family="Inter, Arial, sans-serif" font-size="16" letter-spacing="2">AVBYTES WORKBENCH</text>
+  <text x="128" y="95" fill="#F5F7FF" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="800">Browser-first AI operations console</text>
+  <rect x="1280" y="52" width="122" height="34" rx="17" fill="#111A33" stroke="rgba(255,255,255,0.08)"/>
+  <text x="1305" y="74" fill="#EAF2FF" font-family="Inter, Arial, sans-serif" font-size="14">Live apps</text>
+  <rect x="1416" y="52" width="110" height="34" rx="17" fill="#111A33" stroke="rgba(255,255,255,0.08)"/>
+  <text x="1440" y="74" fill="#B8C4E8" font-family="Inter, Arial, sans-serif" font-size="14">Tenant: Pro</text>
+
+  <rect x="42" y="126" width="250" height="832" rx="28" fill="#0B1328" stroke="rgba(255,255,255,0.08)"/>
+  <text x="72" y="172" fill="#78EEFF" font-family="Inter, Arial, sans-serif" font-size="15" letter-spacing="2">APP CATALOG</text>
+  <rect x="66" y="196" width="202" height="54" rx="18" fill="url(#pill)"/>
+  <text x="90" y="228" fill="#071121" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="800">Workbench Home</text>
+  <rect x="66" y="266" width="202" height="54" rx="18" fill="#121D39" stroke="rgba(255,255,255,0.06)"/>
+  <text x="90" y="298" fill="#EAF2FF" font-family="Inter, Arial, sans-serif" font-size="18">Research Agent</text>
+  <rect x="66" y="336" width="202" height="54" rx="18" fill="#121D39" stroke="rgba(255,255,255,0.06)"/>
+  <text x="90" y="368" fill="#EAF2FF" font-family="Inter, Arial, sans-serif" font-size="18">Sales Copilot</text>
+  <rect x="66" y="406" width="202" height="54" rx="18" fill="#121D39" stroke="rgba(255,255,255,0.06)"/>
+  <text x="90" y="438" fill="#EAF2FF" font-family="Inter, Arial, sans-serif" font-size="18">Docs Studio</text>
+  <rect x="66" y="476" width="202" height="54" rx="18" fill="#121D39" stroke="rgba(255,255,255,0.06)"/>
+  <text x="90" y="508" fill="#EAF2FF" font-family="Inter, Arial, sans-serif" font-size="18">Support Ops</text>
+
+  <rect x="66" y="602" width="202" height="156" rx="22" fill="#111A33" stroke="rgba(255,255,255,0.06)"/>
+  <text x="86" y="638" fill="#78EEFF" font-family="Inter, Arial, sans-serif" font-size="14" letter-spacing="2">PERMISSIONS</text>
+  <text x="86" y="676" fill="#F5F7FF" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">Scoped tools</text>
+  <text x="86" y="706" fill="#B9C5E9" font-family="Inter, Arial, sans-serif" font-size="15">• browser</text>
+  <text x="86" y="732" fill="#B9C5E9" font-family="Inter, Arial, sans-serif" font-size="15">• search</text>
+  <text x="86" y="758" fill="#B9C5E9" font-family="Inter, Arial, sans-serif" font-size="15">• email</text>
+
+  <rect x="316" y="126" width="1242" height="220" rx="30" fill="#0B1328" stroke="rgba(255,255,255,0.08)"/>
+  <text x="352" y="176" fill="#78EEFF" font-family="Inter, Arial, sans-serif" font-size="16" letter-spacing="2">OVERVIEW</text>
+  <text x="352" y="226" fill="#F5F7FF" font-family="Inter, Arial, sans-serif" font-size="54" font-weight="800">One shell. Multiple AI apps. Governed by design.</text>
+  <text x="352" y="278" fill="#CAD4F1" font-family="Inter, Arial, sans-serif" font-size="23">Users log in once, choose the right app, and work inside scoped agents with scoped tools and tenant-safe data access.</text>
+  <rect x="352" y="300" width="200" height="34" rx="17" fill="#111A33" stroke="rgba(255,255,255,0.06)"/>
+  <text x="380" y="322" fill="#EAF2FF" font-family="Inter, Arial, sans-serif" font-size="14">Module registry active</text>
+  <rect x="568" y="300" width="170" height="34" rx="17" fill="#111A33" stroke="rgba(255,255,255,0.06)"/>
+  <text x="594" y="322" fill="#EAF2FF" font-family="Inter, Arial, sans-serif" font-size="14">Per-app agents</text>
+  <rect x="754" y="300" width="196" height="34" rx="17" fill="#111A33" stroke="rgba(255,255,255,0.06)"/>
+  <text x="780" y="322" fill="#EAF2FF" font-family="Inter, Arial, sans-serif" font-size="14">Capability-scoped tools</text>
+
+  <rect x="316" y="370" width="396" height="270" rx="26" fill="#0B1328" stroke="rgba(255,255,255,0.08)"/>
+  <text x="344" y="414" fill="#78EEFF" font-family="Inter, Arial, sans-serif" font-size="14" letter-spacing="2">PLATFORM PILLARS</text>
+  <text x="344" y="454" fill="#F5F7FF" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">Workbench shell</text>
+  <text x="344" y="486" fill="#C8D1EE" font-family="Inter, Arial, sans-serif" font-size="17">SSO, app catalog, billing, audit, routing</text>
+  <text x="344" y="530" fill="#F5F7FF" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">App registry</text>
+  <text x="344" y="562" fill="#C8D1EE" font-family="Inter, Arial, sans-serif" font-size="17">Manifest-driven modules with versioned rollout</text>
+  <text x="344" y="606" fill="#F5F7FF" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">Tool gateway</text>
+  <text x="344" y="638" fill="#C8D1EE" font-family="Inter, Arial, sans-serif" font-size="17">Scoped capabilities, approvals, action logs</text>
+
+  <rect x="734" y="370" width="420" height="270" rx="26" fill="#0B1328" stroke="rgba(255,255,255,0.08)"/>
+  <text x="762" y="414" fill="#78EEFF" font-family="Inter, Arial, sans-serif" font-size="14" letter-spacing="2">ACTIVE APP</text>
+  <text x="762" y="454" fill="#F5F7FF" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700">Research Agent</text>
+  <rect x="762" y="478" width="140" height="30" rx="15" fill="#111A33" stroke="rgba(255,255,255,0.06)"/>
+  <text x="790" y="498" fill="#EAF2FF" font-family="Inter, Arial, sans-serif" font-size="13">Model: GPT-5.4</text>
+  <rect x="914" y="478" width="144" height="30" rx="15" fill="#111A33" stroke="rgba(255,255,255,0.06)"/>
+  <text x="944" y="498" fill="#EAF2FF" font-family="Inter, Arial, sans-serif" font-size="13">Tools: 4 enabled</text>
+  <rect x="762" y="526" width="364" height="84" rx="20" fill="#121D39" stroke="rgba(255,255,255,0.06)"/>
+  <text x="786" y="560" fill="#F5F7FF" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700">Task</text>
+  <text x="786" y="588" fill="#C8D1EE" font-family="Inter, Arial, sans-serif" font-size="16">Design a module-based AI workbench and prepare launch-ready architecture notes.</text>
+
+  <rect x="1178" y="370" width="380" height="270" rx="26" fill="#0B1328" stroke="rgba(255,255,255,0.08)"/>
+  <text x="1206" y="414" fill="#78EEFF" font-family="Inter, Arial, sans-serif" font-size="14" letter-spacing="2">TENANT CONTROL</text>
+  <text x="1206" y="454" fill="#F5F7FF" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">App visibility by role</text>
+  <text x="1206" y="492" fill="#C8D1EE" font-family="Inter, Arial, sans-serif" font-size="17">Admin picks which teams see which apps, connectors, and workflows.</text>
+  <rect x="1206" y="524" width="324" height="26" rx="13" fill="#121D39"/>
+  <rect x="1206" y="524" width="248" height="26" rx="13" fill="url(#pill)" opacity="0.88"/>
+  <text x="1206" y="574" fill="#B9C5E9" font-family="Inter, Arial, sans-serif" font-size="15">Sales Workspace • 7 apps enabled</text>
+  <text x="1206" y="602" fill="#B9C5E9" font-family="Inter, Arial, sans-serif" font-size="15">Ops Workspace • 4 apps enabled</text>
+
+  <rect x="316" y="664" width="604" height="294" rx="26" fill="#0B1328" stroke="rgba(255,255,255,0.08)"/>
+  <text x="344" y="708" fill="#78EEFF" font-family="Inter, Arial, sans-serif" font-size="14" letter-spacing="2">WORKBENCH PREVIEW</text>
+  <text x="344" y="748" fill="#F5F7FF" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">Browser-native operator experience</text>
+  <rect x="344" y="776" width="548" height="142" rx="22" fill="#121D39" stroke="rgba(255,255,255,0.06)"/>
+  <rect x="368" y="800" width="160" height="94" rx="18" fill="#0C152D" stroke="rgba(255,255,255,0.05)"/>
+  <text x="388" y="836" fill="#EAF2FF" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">App launcher</text>
+  <text x="388" y="864" fill="#B9C5E9" font-family="Inter, Arial, sans-serif" font-size="14">Role-aware app selection</text>
+  <rect x="548" y="800" width="160" height="94" rx="18" fill="#0C152D" stroke="rgba(255,255,255,0.05)"/>
+  <text x="568" y="836" fill="#EAF2FF" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">Chat + tasks</text>
+  <text x="568" y="864" fill="#B9C5E9" font-family="Inter, Arial, sans-serif" font-size="14">Agent workspace and approvals</text>
+  <rect x="728" y="800" width="140" height="94" rx="18" fill="#0C152D" stroke="rgba(255,255,255,0.05)"/>
+  <text x="748" y="836" fill="#EAF2FF" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">Insights</text>
+  <text x="748" y="864" fill="#B9C5E9" font-family="Inter, Arial, sans-serif" font-size="14">Usage and KPIs</text>
+
+  <rect x="944" y="664" width="614" height="294" rx="26" fill="#0B1328" stroke="rgba(255,255,255,0.08)"/>
+  <text x="972" y="708" fill="#78EEFF" font-family="Inter, Arial, sans-serif" font-size="14" letter-spacing="2">ROLL OUT</text>
+  <text x="972" y="748" fill="#F5F7FF" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">Ship in three deliberate phases</text>
+  <text x="972" y="794" fill="#EAF2FF" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700">1. MVP</text>
+  <text x="1038" y="794" fill="#C8D1EE" font-family="Inter, Arial, sans-serif" font-size="16">Shell, registry, per-app agents, scoped tools</text>
+  <text x="972" y="834" fill="#EAF2FF" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700">2. Hardening</text>
+  <text x="1088" y="834" fill="#C8D1EE" font-family="Inter, Arial, sans-serif" font-size="16">Approvals, connectors, admin console, quotas</text>
+  <text x="972" y="874" fill="#EAF2FF" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700">3. Ecosystem</text>
+  <text x="1084" y="874" fill="#C8D1EE" font-family="Inter, Arial, sans-serif" font-size="16">Remote modules, SDK, marketplace-style distribution</text>
+</svg>
