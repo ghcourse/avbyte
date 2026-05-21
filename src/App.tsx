@@ -1,24 +1,112 @@
-import { useState } from 'react'
 import './App.css'
-import { siteData } from './data/siteData'
 
-type TabKey = 'ideas' | 'blueprints' | 'market' | 'stocks' | 'crypto' | 'ai' | 'sources'
-
-const tabs: Array<{ key: TabKey; label: string; eyebrow: string }> = [
-  { key: 'ideas', label: 'Idea Feed', eyebrow: 'Passive income' },
-  { key: 'blueprints', label: 'Build Blueprints', eyebrow: 'Execution' },
-  { key: 'market', label: 'Market Brief', eyebrow: 'Daily pulse' },
-  { key: 'stocks', label: 'Stocks', eyebrow: 'Trend watch' },
-  { key: 'crypto', label: 'Crypto', eyebrow: 'Momentum' },
-  { key: 'ai', label: 'AI News', eyebrow: 'Builder signals' },
-  { key: 'sources', label: 'Research Sources', eyebrow: 'Daily mining' },
+const stats = [
+  { label: 'Response times', value: 'Faster updates' },
+  { label: 'Target users', value: '5–200 units' },
+  { label: 'Primary wedge', value: 'Maintenance ops' },
 ]
 
-const formatPct = (value: number) => `${value >= 0 ? '+' : ''}${value.toFixed(2)}%`
+const painPoints = [
+  'Tenant requests get buried in texts, calls, and email threads.',
+  'Landlords waste time answering “any update?” instead of moving repairs forward.',
+  'Vendor coordination lives in someone’s head or in a spreadsheet nobody trusts.',
+  'There is rarely a clean repair timeline with photos, notes, and completion proof.',
+]
+
+const coreFeatures = [
+  {
+    title: 'Maintenance request intake',
+    text: 'Collect issue type, urgency, unit, photos, and preferred access time in one clean flow.',
+  },
+  {
+    title: 'Real-time status updates',
+    text: 'Track every job from new → acknowledged → scheduled → in progress → completed.',
+  },
+  {
+    title: 'Vendor coordination',
+    text: 'Assign the right contractor, attach notes, estimate cost, and keep the handoff visible.',
+  },
+  {
+    title: 'Tenant visibility',
+    text: 'Give tenants a simple status timeline so they stop chasing updates in random chats.',
+  },
+]
+
+const workflows = [
+  {
+    step: '01',
+    title: 'Tenant submits request',
+    text: 'Phone-friendly form with unit, category, urgency, photos, and access notes.',
+  },
+  {
+    step: '02',
+    title: 'Manager triages and assigns',
+    text: 'Route the issue, set priority, assign vendor, and confirm next step in one view.',
+  },
+  {
+    step: '03',
+    title: 'Vendor completes the job',
+    text: 'Capture notes, before/after photos, schedule changes, and completion status.',
+  },
+  {
+    step: '04',
+    title: 'Tenant sees the timeline',
+    text: 'Everyone sees the same repair record, which cuts back-and-forth dramatically.',
+  },
+]
+
+const modules = [
+  {
+    title: 'Landlord dashboard',
+    bullets: ['Open requests by property', 'Overdue jobs', 'Vendor response speed', 'Recurring issue tracking'],
+  },
+  {
+    title: 'Tenant request portal',
+    bullets: ['Mobile-first form', 'Photo uploads', 'Urgency flagging', 'Status page by request'],
+  },
+  {
+    title: 'Vendor workspace',
+    bullets: ['Assigned work orders', 'Scheduling notes', 'Completion photos', 'Internal handoff comments'],
+  },
+]
+
+const roadmap = [
+  {
+    phase: 'MVP',
+    title: 'Repair communication hub',
+    text: 'Intake, status pipeline, vendor assignment, timeline, and notifications.',
+  },
+  {
+    phase: 'Phase 2',
+    title: 'Property-level history',
+    text: 'Recurring issue tracking, vendor history, searchable maintenance records.',
+  },
+  {
+    phase: 'Phase 3',
+    title: 'Operational intelligence',
+    text: 'Owner reporting, invoice storage, trend detection, and AI-generated summaries.',
+  },
+]
+
+const pricing = [
+  {
+    plan: 'Starter',
+    price: '$29/mo',
+    detail: 'For small self-managed landlords up to 20 units.',
+  },
+  {
+    plan: 'Growth',
+    price: '$79/mo',
+    detail: 'For growing operators who need multiple properties and vendor workflows.',
+  },
+  {
+    plan: 'Manager',
+    price: '$149+/mo',
+    detail: 'For small property managers handling larger portfolios and more coordination.',
+  },
+]
 
 function App() {
-  const [activeTab, setActiveTab] = useState<TabKey>('ideas')
-
   return (
     <div className="app-shell">
       <div className="ambient ambient-one" />
@@ -30,242 +118,192 @@ function App() {
           <div className="brand-wrap">
             <div className="brand-badge">AV</div>
             <div>
-              <p className="mini-kicker">AV Byte · Passive Income Radar</p>
-              <h1>Daily passive-income ideas worth building, not just scrolling past.</h1>
+              <p className="mini-kicker">AV Byte · MaintenanceOS</p>
+              <h1>Maintenance requests, status updates, vendor coordination, and tenant visibility — finally in one place.</h1>
             </div>
           </div>
 
           <div className="hero-status">
-            <span className="status-pill">Updated {siteData.lastUpdated}</span>
-            <span className="status-pill muted">Stocks · Crypto · AI · Reddit · Social</span>
+            <span className="status-pill">Micro-SaaS wedge</span>
+            <span className="status-pill muted">For small landlords & property managers</span>
           </div>
         </div>
 
         <div className="hero-grid">
           <div className="hero-copy">
-            <p className="section-kicker">What this page does</p>
+            <p className="section-kicker">Product direction</p>
             <p className="hero-text">
-              This site tracks practical ideas for passive-ish income with a bias toward niche
-              micro-SaaS, templates, memberships, and AI workflow products. Instead of generic side
-              hustle fluff, each idea is framed around buyer pain, monetization, build path, and
-              why it matters now.
+              This product is built for the gap between scattered text-thread chaos and bloated
+              property management software. The wedge is narrow on purpose: intake, repair status,
+              vendor coordination, and a clean tenant-facing timeline.
             </p>
 
             <div className="hero-cta-row">
-              <button className="primary-button" onClick={() => setActiveTab('ideas')}>
-                Explore idea feed
-              </button>
-              <button className="secondary-button" onClick={() => setActiveTab('market')}>
-                Read market brief
-              </button>
+              <a className="primary-button" href="#product">View product scope</a>
+              <a className="secondary-button" href="#roadmap">See build roadmap</a>
             </div>
 
             <div className="signal-strip">
-              {siteData.heroStats.map((item) => (
+              {stats.map((item) => (
                 <article key={item.label} className="signal-card">
                   <span>{item.label}</span>
                   <strong>{item.value}</strong>
-                  <p>Focused on compact, monetizable opportunities with visible market demand.</p>
+                  <p>Simple workflow ownership beats another bloated all-in-one suite.</p>
                 </article>
               ))}
             </div>
           </div>
 
           <aside className="hero-highlight">
-            <p className="section-kicker">Top current wedge</p>
+            <p className="section-kicker">Why this wedge works</p>
             <div className="focus-ring">
               <div>
-                <span>Best opportunity right now</span>
-                <strong>{siteData.topOpportunity.title}</strong>
+                <span>Core promise</span>
+                <strong>Stop running maintenance through random chats.</strong>
               </div>
             </div>
             <ul className="focus-list">
-              {siteData.topOpportunity.bullets.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
+              <li>Easy ROI story: fewer missed requests, faster updates, cleaner records.</li>
+              <li>Clear positioning: maintenance communication, not full property software.</li>
+              <li>Strong mobile use case for tenants, vendors, and landlords.</li>
             </ul>
           </aside>
+        </div>
+      </section>
+
+      <section className="tab-panel" id="product">
+        <div className="tab-header">
+          <div>
+            <p className="section-kicker">Problem</p>
+            <h2>What breaks today</h2>
+          </div>
+          <span className="status-pill">Small-portfolio landlord pain</span>
+        </div>
+
+        <div className="content-grid idea-grid">
+          {painPoints.map((item) => (
+            <article key={item} className="content-card idea-card">
+              <p className="section-kicker">Pain point</p>
+              <h3>{item}</h3>
+              <p className="card-copy">
+                The maintenance workflow is usually fragmented, reactive, and impossible to audit.
+                That makes this a strong software wedge.
+              </p>
+            </article>
+          ))}
         </div>
       </section>
 
       <section className="tab-panel">
         <div className="tab-header">
           <div>
-            <p className="section-kicker">Research workspace</p>
-            <h2>Idea intelligence + market context</h2>
+            <p className="section-kicker">Core product</p>
+            <h2>MVP features</h2>
           </div>
-          <span className="status-pill">Source-led, updated for repeat use</span>
+          <span className="status-pill">Ship this first</span>
         </div>
 
-        <div className="tab-bar">
-          {tabs.map((tab) => (
-            <button
-              key={tab.key}
-              className={`tab-button ${activeTab === tab.key ? 'active' : ''}`}
-              onClick={() => setActiveTab(tab.key)}
-            >
-              <span className="tab-eyebrow">{tab.eyebrow}</span>
-              <strong>{tab.label}</strong>
-            </button>
+        <div className="signal-grid feature-grid">
+          {coreFeatures.map((item) => (
+            <article key={item.title} className="signal-card">
+              <span>Feature</span>
+              <strong>{item.title}</strong>
+              <p>{item.text}</p>
+            </article>
           ))}
         </div>
+      </section>
 
-        {activeTab === 'ideas' && (
-          <div className="content-grid idea-grid">
-            {siteData.ideas.map((idea) => (
-              <article key={idea.title} className="content-card idea-card">
-                <div className="card-head">
-                  <div>
-                    <p className="section-kicker">{idea.niche}</p>
-                    <h3>{idea.title}</h3>
-                  </div>
-                  <span className="badge-soft">{idea.model}</span>
-                </div>
-                <p className="card-copy">{idea.whyNow}</p>
-                <div className="idea-meta">
-                  <div className="metric-card compact">
-                    <span>Monetization</span>
-                    <strong>{idea.monetization}</strong>
-                  </div>
-                  <div className="metric-card compact">
-                    <span>Signal</span>
-                    <strong>{idea.signal}</strong>
-                  </div>
-                </div>
-                <div className="idea-build-box">
-                  <span>Build angle</span>
-                  <p>{idea.buildAngle}</p>
-                </div>
-                <p className="story-source">{idea.source}</p>
-              </article>
-            ))}
+      <section className="tab-panel">
+        <div className="tab-header">
+          <div>
+            <p className="section-kicker">Workflow</p>
+            <h2>How the product should feel</h2>
           </div>
-        )}
+          <span className="status-pill">Fast, visible, low-friction</span>
+        </div>
 
-        {activeTab === 'blueprints' && (
-          <div className="signal-grid blueprint-grid">
-            {siteData.blueprints.map((item) => (
-              <article key={item.title} className="signal-card blueprint-card">
-                <span>{item.title}</span>
-                <strong>{item.outcome}</strong>
-                <p>{item.stack}</p>
-                <div className="blueprint-moat">{item.moat}</div>
-              </article>
-            ))}
-          </div>
-        )}
-
-        {activeTab === 'market' && (
-          <div className="content-grid overview-grid">
-            <article className="content-card">
-              <div className="card-head">
-                <div>
-                  <p className="section-kicker">Daily read</p>
-                  <h3>Market brief</h3>
-                </div>
-                <span className="badge-soft">Stocks · Crypto · AI</span>
-              </div>
-              <div className="story-list">
-                {siteData.marketBrief.map((story) => (
-                  <article key={story.title} className="story-card">
-                    <div className="story-meta-row story-topline">
-                      <span className="story-tag">{story.title}</span>
-                      <span className="story-pulse">{story.pulse}</span>
-                    </div>
-                    <p>{story.summary}</p>
-                  </article>
-                ))}
-              </div>
+        <div className="signal-grid workflow-grid">
+          {workflows.map((item) => (
+            <article key={item.step} className="signal-card workflow-card">
+              <span>{item.step}</span>
+              <strong>{item.title}</strong>
+              <p>{item.text}</p>
             </article>
+          ))}
+        </div>
+      </section>
 
-            <aside className="content-card">
+      <section className="tab-panel">
+        <div className="tab-header">
+          <div>
+            <p className="section-kicker">Modules</p>
+            <h2>Product surfaces</h2>
+          </div>
+          <span className="status-pill">3-screen MVP</span>
+        </div>
+
+        <div className="content-grid overview-grid">
+          {modules.map((item) => (
+            <article key={item.title} className="content-card">
               <div className="card-head">
                 <div>
-                  <p className="section-kicker">Daily update workflow</p>
-                  <h3>How this page stays useful</h3>
+                  <p className="section-kicker">Surface</p>
+                  <h3>{item.title}</h3>
                 </div>
               </div>
               <ul className="bullet-list">
-                {siteData.updateChecklist.map((item) => (
-                  <li key={item}>{item}</li>
+                {item.bullets.map((bullet) => (
+                  <li key={bullet}>{bullet}</li>
                 ))}
               </ul>
-            </aside>
-          </div>
-        )}
+            </article>
+          ))}
+        </div>
+      </section>
 
-        {activeTab === 'stocks' && (
-          <div className="ticker-grid">
-            {siteData.stockTickers.map((ticker) => (
-              <article key={ticker.symbol} className="ticker-card">
-                <div className="ticker-topline">
-                  <strong>{ticker.symbol}</strong>
-                  <span className={ticker.change >= 0 ? 'positive' : 'negative'}>
-                    {formatPct(ticker.change)}
-                  </span>
-                </div>
-                <h3>{ticker.price}</h3>
-                <p>{ticker.note}</p>
-              </article>
-            ))}
+      <section className="tab-panel" id="roadmap">
+        <div className="tab-header">
+          <div>
+            <p className="section-kicker">Roadmap</p>
+            <h2>Build sequence</h2>
           </div>
-        )}
+          <span className="status-pill">Narrow wedge first</span>
+        </div>
 
-        {activeTab === 'crypto' && (
-          <div className="ticker-grid">
-            {siteData.cryptoTickers.map((ticker) => (
-              <article key={ticker.symbol} className="ticker-card">
-                <div className="ticker-topline">
-                  <strong>{ticker.symbol}</strong>
-                  <span className={ticker.change >= 0 ? 'positive' : 'negative'}>
-                    {formatPct(ticker.change)}
-                  </span>
-                </div>
-                <h3>{ticker.price}</h3>
-                <p>{ticker.note}</p>
-              </article>
-            ))}
+        <div className="signal-grid blueprint-grid">
+          {roadmap.map((item) => (
+            <article key={item.phase} className="signal-card blueprint-card">
+              <span>{item.phase}</span>
+              <strong>{item.title}</strong>
+              <p>{item.text}</p>
+              <div className="blueprint-moat">Stay tightly focused on maintenance ops until retention is obvious.</div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="tab-panel">
+        <div className="tab-header">
+          <div>
+            <p className="section-kicker">Pricing</p>
+            <h2>Simple early pricing</h2>
           </div>
-        )}
+          <span className="status-pill">Price by portfolio size</span>
+        </div>
 
-        {activeTab === 'ai' && (
-          <div className="signal-grid">
-            {siteData.aiSignals.map((item) => (
-              <article key={item.label} className="signal-card">
-                <span>{item.label}</span>
-                <strong>{item.value}</strong>
-                <p>{item.detail}</p>
-              </article>
-            ))}
-          </div>
-        )}
-
-        {activeTab === 'sources' && (
-          <div className="content-grid overview-grid">
-            <div className="signal-grid source-grid">
-              {siteData.sourceSignals.map((item) => (
-                <article key={item.label} className="signal-card">
-                  <span>{item.label}</span>
-                  <strong>{item.value}</strong>
-                  <p>{item.detail}</p>
-                </article>
-              ))}
-            </div>
-            <aside className="content-card source-note-card">
-              <div className="card-head">
-                <div>
-                  <p className="section-kicker">What to mine daily</p>
-                  <h3>Source checklist</h3>
-                </div>
+        <div className="ticker-grid pricing-grid">
+          {pricing.map((item) => (
+            <article key={item.plan} className="ticker-card pricing-card">
+              <div className="ticker-topline">
+                <strong>{item.plan}</strong>
+                <span className="positive">Launch tier</span>
               </div>
-              <ul className="bullet-list">
-                {siteData.sourceChecklist.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </aside>
-          </div>
-        )}
+              <h3>{item.price}</h3>
+              <p>{item.detail}</p>
+            </article>
+          ))}
+        </div>
       </section>
     </div>
   )

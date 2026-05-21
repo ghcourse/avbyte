@@ -11,6 +11,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   min-width: 320px;
   min-height: 100vh;
@@ -22,6 +26,7 @@ body {
 button,
 a {
   font: inherit;
+  text-decoration: none;
 }
 
 button {
@@ -153,9 +158,9 @@ ul {
 
 .hero-nav h1 {
   margin-top: 10px;
-  max-width: 760px;
-  font-size: clamp(2.6rem, 5vw, 4.9rem);
-  line-height: 0.95;
+  max-width: 860px;
+  font-size: clamp(2.6rem, 5vw, 4.6rem);
+  line-height: 0.98;
 }
 
 .hero-status {
@@ -193,7 +198,7 @@ ul {
 
 .hero-text {
   margin-top: 14px;
-  max-width: 680px;
+  max-width: 700px;
   color: rgba(231, 237, 255, 0.74);
   font-size: 1.04rem;
   line-height: 1.75;
@@ -224,6 +229,9 @@ ul {
 
 .primary-button,
 .secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-height: 50px;
   padding: 0 20px;
   border-radius: 999px;
@@ -345,36 +353,13 @@ ul {
   font-size: 2rem;
 }
 
-.tab-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 22px;
-  margin-bottom: 22px;
-}
-
-.tab-button {
-  min-height: 46px;
-  padding: 0 18px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.035);
-  color: #dbe5ff;
-}
-
-.tab-button.active {
-  background: linear-gradient(135deg, rgba(96, 244, 255, 0.18), rgba(159, 92, 255, 0.22));
-  border-color: rgba(121, 225, 255, 0.36);
-  color: #ffffff;
-}
-
 .content-grid {
   display: grid;
   gap: 18px;
 }
 
 .overview-grid {
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .content-card {
@@ -389,7 +374,8 @@ ul {
   margin-bottom: 18px;
 }
 
-.card-head h3 {
+.card-head h3,
+.idea-card h3 {
   margin-top: 8px;
   font-size: 1.45rem;
 }
@@ -399,10 +385,6 @@ ul {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.045);
   color: #eaf1ff;
-}
-
-.story-list {
-  grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
 .idea-grid {
@@ -423,11 +405,6 @@ ul {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
-}
-
-.metric-card.compact strong {
-  font-size: 1.05rem;
-  line-height: 1.45;
 }
 
 .idea-build-box {
@@ -451,25 +428,6 @@ ul {
   align-items: center;
 }
 
-.story-tag {
-  color: #79e9ff;
-}
-
-.story-pulse {
-  color: #cdb7ff;
-}
-
-.story-card h4,
-.ticker-card h4 {
-  margin-top: 12px;
-  font-size: 1.2rem;
-}
-
-.story-source {
-  display: inline-block;
-  margin-top: 4px;
-}
-
 .bullet-list {
   display: grid;
   gap: 14px;
@@ -481,9 +439,14 @@ ul {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.blueprint-grid,
-.source-grid {
+.feature-grid,
+.workflow-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pricing-grid,
+.blueprint-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .blueprint-card {
@@ -496,17 +459,23 @@ ul {
   line-height: 1.55;
 }
 
-.source-note-card {
-  align-self: start;
-}
-
 .ticker-card strong {
   font-size: 1rem;
+}
+
+.ticker-card h3 {
+  margin-top: 12px;
+  font-size: 1.5rem;
 }
 
 .ticker-card span:last-child {
   display: inline-block;
   margin-top: 14px;
+}
+
+.workflow-card span,
+.pricing-card .positive {
+  color: #79e9ff;
 }
 
 .positive {
@@ -525,7 +494,9 @@ ul {
   .signal-grid,
   .signal-strip,
   .blueprint-grid,
-  .source-grid {
+  .pricing-grid,
+  .feature-grid,
+  .workflow-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -558,16 +529,13 @@ ul {
   .signal-strip,
   .idea-meta,
   .blueprint-grid,
-  .source-grid {
+  .pricing-grid,
+  .feature-grid,
+  .workflow-grid {
     grid-template-columns: 1fr;
   }
 
   .hero-nav h1 {
     font-size: clamp(2.2rem, 10vw, 3.5rem);
-  }
-
-  .tab-bar {
-    overflow-x: auto;
-    padding-bottom: 4px;
   }
 }

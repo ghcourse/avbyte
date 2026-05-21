@@ -1,21 +1,34 @@
 # avbyte
 
-A vibrant React + Vite site focused on:
-- passive-income business ideas
-- niche micro-SaaS opportunities
-- daily market brief updates
-- trending stocks, crypto, and AI news
-- research-backed signals from Reddit and social media
+MaintenanceOS is a React + Vite product site for a landlord-focused maintenance workflow tool.
 
-## Highlights
+## Product concept
 
-- premium neon/glassmorphism dashboard with tabbed navigation
-- passive-income idea feed with monetization and build-angle framing
-- market brief section for stocks, crypto, and AI
-- research source panel for social-media and Reddit mining
-- lightweight editorial template for daily updates
-- GitHub Pages-compatible Vite configuration
-- automatic deployment with GitHub Actions
+A focused micro-SaaS for:
+- maintenance request intake
+- repair status tracking
+- vendor coordination
+- tenant visibility
+- clean maintenance timelines for small landlords and property managers
+
+## Positioning
+
+This is intentionally **not** a full property management suite.
+
+The wedge is maintenance communication for operators who are stuck between:
+- random text threads
+- spreadsheets
+- bloated all-in-one landlord software
+
+## Current site sections
+
+- hero positioning for the product
+- pain-point framing
+- MVP feature scope
+- workflow breakdown
+- product surface/modules
+- phased roadmap
+- simple pricing model
 
 ## Run locally
 
@@ -39,24 +52,11 @@ This repo is configured for GitHub Pages under:
 
 After enabling **Settings → Pages → Source: GitHub Actions**, every push to `main` auto-deploys from the fresh Vite `dist/` build output.
 
-## Notes
+## Automation
 
-Because GitHub Pages is a static host, the current site is structured as a polished editorial dashboard with curated content that can be refreshed daily.
+The existing automation is still present:
+- `npm run update:data` regenerates live research content
+- `.github/workflows/daily-refresh.yml` runs daily at `06:15 UTC`
+- pushes to `main` trigger `.github/workflows/deploy-pages.yml`
 
-## Daily updates
-
-Use `content/daily-update-template.md` as the source-of-truth checklist when refreshing:
-- passive-income idea cards
-- market brief summaries
-- stock and crypto watchlists
-- AI / builder signals
-- research source notes from Reddit and social media
-
-Automation included:
-- `npm run update:data` fetches live public data and regenerates the site data file
-- live sources currently used: Hacker News Algolia API, CoinGecko, and Stooq
-- `.github/workflows/daily-refresh.yml` runs daily and pushes changes to `main`
-- the existing Pages workflow then deploys the refreshed site automatically
-- Reddit/social scraping was intentionally avoided in automation because the public endpoints were blocked or rate-limited from this environment
-
-<!-- deploy ping 2026-05-21T23:11:00Z -->
+That means the repo is already set up for daily scheduled refreshes and automatic deployment.
