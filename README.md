@@ -51,3 +51,8 @@ Use `content/daily-update-template.md` as the source-of-truth checklist when ref
 - stock and crypto watchlists
 - AI / builder signals
 - research source notes from Reddit and social media
+
+Automation included:
+- `npm run update:data` rotates the site data stamp and refreshes selected content blocks
+- `.github/workflows/daily-refresh.yml` runs daily and pushes changes to `main`
+- the existing Pages workflow then deploys the refreshed site automatically
