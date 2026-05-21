@@ -58,3 +58,5 @@ Automation included:
 - `.github/workflows/daily-refresh.yml` runs daily and pushes changes to `main`
 - the existing Pages workflow then deploys the refreshed site automatically
 - Reddit/social scraping was intentionally avoided in automation because the public endpoints were blocked or rate-limited from this environment
+
+<!-- deploy ping 2026-05-21T23:11:00Z -->
