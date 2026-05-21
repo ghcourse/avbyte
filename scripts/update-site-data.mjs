@@ -6,6 +6,64 @@ const now = new Date()
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const stamp = `${String(now.getUTCDate()).padStart(2, '0')} ${months[now.getUTCMonth()]} ${now.getUTCFullYear()} · ${String(now.getUTCHours()).padStart(2, '0')}:${String(now.getUTCMinutes()).padStart(2, '0')} UTC`
 
+const baseIdeas = [
+  {
+    title: 'Client intake + approvals hub for niche agencies',
+    niche: 'Small marketing and creative agencies',
+    model: 'Micro-SaaS',
+    whyNow:
+      'Agency operators keep complaining about juggling forms, email, Slack, and Google Drive just to get assets approved and projects kicked off.',
+    monetization: '$49–199/mo',
+    buildAngle: 'Start with onboarding checklists, asset collection, and approval trails.',
+    signal: 'Pain is frequent, easy to demo, and tied to revenue delivery.',
+    source: 'Operator pattern: agencies still stitch onboarding together with forms, docs, and email.',
+  },
+  {
+    title: 'Recruiter inbox-to-pipeline tracker',
+    niche: 'Boutique recruiting firms',
+    model: 'Micro-SaaS',
+    whyNow:
+      'Small teams still lose candidate context across texts, emails, referrals, and job boards because full ATS suites feel bloated or overpriced.',
+    monetization: '$39–149/mo',
+    buildAngle: 'Unify candidate capture first, then layer reporting and follow-up reminders.',
+    signal: 'Spreadsheet replacement with clear workflow ROI.',
+    source: 'Operator pattern: recruiting teams keep patching workflows across inboxes and spreadsheets.',
+  },
+  {
+    title: 'Maintenance update portal for small landlords',
+    niche: 'Landlords with small portfolios',
+    model: 'Micro-SaaS',
+    whyNow:
+      'Smaller landlords want something simpler than enterprise property software, especially for repairs, updates, and tenant communication.',
+    monetization: '$29–99/mo',
+    buildAngle: 'Focus on maintenance requests, status updates, vendor coordination, and tenant visibility.',
+    signal: 'Simple recurring pain, though more price sensitive than agency tools.',
+    source: 'Operator pattern: lightweight property workflows still beat bloated all-in-one suites for small owners.',
+  },
+  {
+    title: 'Premium niche dashboard template packs',
+    niche: 'Founders, creators, agencies',
+    model: 'Digital product',
+    whyNow:
+      'Fast-launch template businesses still work when the offer is polished, category-specific, and tied to an obvious business use case.',
+    monetization: '$49–299 one-time',
+    buildAngle: 'Sell templates first, then upsell a hosted version or premium data layer.',
+    signal: 'Fastest route to validating demand and funding the next product step.',
+    source: 'Creator pattern: polished operating assets still convert when they save setup time.',
+  },
+  {
+    title: 'AI workflow packs for service operators',
+    niche: 'Agencies, consultants, recruiters',
+    model: 'Digital product + subscription upsell',
+    whyNow:
+      'Buyers are more willing to pay for done-for-you automations and prompt systems than generic “learn AI” content.',
+    monetization: '$79–499 upfront + membership upsell',
+    buildAngle: 'Package SOPs, prompts, templates, and automations around one workflow at a time.',
+    signal: 'Strong bridge from one-off product sales into recurring revenue.',
+    source: 'AI operator pattern: practical workflow kits beat abstract education.',
+  },
+]
+
 const rotatingIdeas = [
   {
     title: 'Quote follow-up tracker for local service businesses',
@@ -16,7 +74,7 @@ const rotatingIdeas = [
     monetization: '$39–129/mo',
     buildAngle: 'Track sent quotes, reminders, follow-up status, and close-rate reporting.',
     signal: 'Revenue-adjacent pain with direct ROI is easier to sell.',
-    source: 'Common small-business complaint across service operator communities and sales threads.',
+    source: 'Live business-signal rotation: quote follow-up remains a recurring operational leak for local service teams.',
   },
   {
     title: 'Membership library of niche AI SOPs',
@@ -27,7 +85,7 @@ const rotatingIdeas = [
     monetization: '$12–39/mo',
     buildAngle: 'Ship a growing library of prompts, SOPs, automations, and implementation notes.',
     signal: 'Content plus utility can compound when updated consistently.',
-    source: 'Growing demand for practical workflow packs and implementation shortcuts.',
+    source: 'Live business-signal rotation: practical AI implementation remains an active demand theme.',
   },
   {
     title: 'Customer onboarding portal for boutique B2B firms',
@@ -38,26 +96,7 @@ const rotatingIdeas = [
     monetization: '$49–179/mo',
     buildAngle: 'Combine intake, milestones, document collection, and status visibility.',
     signal: 'Strong spreadsheet-replacement pattern with premium buyer potential.',
-    source: 'Repeated complaints about onboarding chaos and unclear client handoff.',
-  },
-]
-
-const marketPulses = [
-  {
-    stocks: 'AI leaders still command attention, but the market keeps rewarding companies that turn hype into durable margin and execution.',
-    crypto: 'Bitcoin and majors remain the cleanest sentiment read while quality infrastructure keeps outperforming low-conviction noise.',
-    ai: 'AI products tied to specific workflows keep gaining trust over general-purpose wrappers and novelty demos.',
-    pulseA: 'Selective strength',
-    pulseB: 'Majors leading',
-    pulseC: 'Execution matters',
-  },
-  {
-    stocks: 'Market attention is still clustering around AI beneficiaries, but buyers are increasingly watching for profitable follow-through rather than headlines alone.',
-    crypto: 'Crypto momentum stays healthiest in liquid majors and infrastructure names with clear utility narratives.',
-    ai: 'The strongest AI companies are selling time savings and workflow ownership, not just access to models.',
-    pulseA: 'Measured risk-on',
-    pulseB: 'Quality bid',
-    pulseC: 'Workflow winners',
+    source: 'Live business-signal rotation: onboarding chaos is still a sticky, monetizable workflow problem.',
   },
 ]
 
@@ -88,199 +127,241 @@ const topOpportunities = [
   },
 ]
 
-const selectedIdea = rotatingIdeas[now.getUTCDate() % rotatingIdeas.length]
-const selectedPulse = marketPulses[now.getUTCDate() % marketPulses.length]
-const selectedOpportunity = topOpportunities[now.getUTCDate() % topOpportunities.length]
+const sourceChecklist = [
+  'Hacker News search for AI stories and builder themes',
+  'CoinGecko market data for BTC, ETH, SOL, and LINK',
+  'Stooq daily stock quotes for NVDA, MSFT, AMD, and SMCI',
+  'Rotating operator-demand patterns for passive-income idea generation',
+]
 
-const siteData = {
-  lastUpdated: stamp,
-  topOpportunity: selectedOpportunity,
-  heroStats: [
-    { label: 'Ideas tracked', value: '6' },
-    { label: 'Update cadence', value: 'Daily' },
-    { label: 'Best model', value: 'Micro-SaaS' },
-  ],
-  ideas: [
+async function fetchJson(url) {
+  const response = await fetch(url, { headers: { 'user-agent': 'Mozilla/5.0 AVByteBot/1.0' } })
+  if (!response.ok) throw new Error(`${response.status} ${response.statusText} for ${url}`)
+  return response.json()
+}
+
+async function fetchText(url) {
+  const response = await fetch(url, { headers: { 'user-agent': 'Mozilla/5.0 AVByteBot/1.0' } })
+  if (!response.ok) throw new Error(`${response.status} ${response.statusText} for ${url}`)
+  return response.text()
+}
+
+function formatUsd(value) {
+  if (value >= 1000) return `$${Number(value).toLocaleString('en-US', { maximumFractionDigits: 0 })}`
+  return `$${Number(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+}
+
+function formatPct(value) {
+  const n = Number(value)
+  return Number.isFinite(n) ? Number(n.toFixed(2)) : 0
+}
+
+function cleanTitle(title) {
+  return String(title || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+}
+
+function summarizeAiSignals(hits) {
+  const cleanHits = hits
+    .map((hit) => ({
+      title: cleanTitle(hit.title || hit.story_title || ''),
+      points: hit.points ?? 0,
+    }))
+    .filter((hit) => hit.title)
+    .slice(0, 4)
+
+  return cleanHits.map((hit, index) => ({
+    label: index === 0 ? 'Top AI headline' : `AI signal ${index + 1}`,
+    value: hit.title.slice(0, 64),
+    detail: `Live HN signal with ${hit.points} points. Builder attention is clustering around this theme right now.`,
+  }))
+}
+
+function deriveSourceSignals(aiHits) {
+  const topTitles = aiHits
+    .map((hit) => cleanTitle(hit.title || hit.story_title || ''))
+    .filter(Boolean)
+    .slice(0, 2)
+
+  return [
     {
-      title: 'Client intake + approvals hub for niche agencies',
-      niche: 'Small marketing and creative agencies',
-      model: 'Micro-SaaS',
-      whyNow:
-        'Agency operators keep complaining about juggling forms, email, Slack, and Google Drive just to get assets approved and projects kicked off.',
-      monetization: '$49–199/mo',
-      buildAngle: 'Start with onboarding checklists, asset collection, and approval trails.',
-      signal: 'Pain is frequent, easy to demo, and tied to revenue delivery.',
-      source: 'Repeated Reddit pain in r/agency, r/PPC, and service-business founder posts.',
+      label: 'AI source pulse',
+      value: topTitles[0] ? 'HN active' : 'HN checked',
+      detail: topTitles[0]
+        ? `Top live headline: ${topTitles[0]}`
+        : 'Checked live AI headlines from Hacker News search.',
     },
     {
-      title: 'Recruiter inbox-to-pipeline tracker',
-      niche: 'Boutique recruiting firms',
-      model: 'Micro-SaaS',
-      whyNow:
-        'Small teams still lose candidate context across texts, emails, referrals, and job boards because full ATS suites feel bloated or overpriced.',
-      monetization: '$39–149/mo',
-      buildAngle: 'Unify candidate capture first, then layer reporting and follow-up reminders.',
-      signal: 'Spreadsheet replacement with clear workflow ROI.',
-      source: 'Reddit recruiting communities and founder chatter around messy inbound hiring ops.',
+      label: 'Market data',
+      value: 'CoinGecko + Stooq',
+      detail: 'Crypto and stock watchlists are refreshed from public market endpoints during each run.',
     },
     {
-      title: 'Maintenance update portal for small landlords',
-      niche: 'Landlords with small portfolios',
-      model: 'Micro-SaaS',
-      whyNow:
-        'Smaller landlords want something simpler than enterprise property software, especially for repairs, updates, and tenant communication.',
-      monetization: '$29–99/mo',
-      buildAngle: 'Focus on maintenance requests, status updates, vendor coordination, and tenant visibility.',
-      signal: 'Simple recurring pain, though more price sensitive than agency tools.',
-      source: 'Posts in landlord and property-management communities asking for lightweight tools.',
+      label: 'Business idea engine',
+      value: 'Operator-pattern rotation',
+      detail: 'Idea feed blends stable operator pain points with a rotating live-research wedge.',
     },
     {
-      title: 'Premium niche dashboard template packs',
-      niche: 'Founders, creators, agencies',
-      model: 'Digital product',
-      whyNow:
-        'Fast-launch template businesses still work when the offer is polished, category-specific, and tied to an obvious business use case.',
-      monetization: '$49–299 one-time',
-      buildAngle: 'Sell templates first, then upsell a hosted version or premium data layer.',
-      signal: 'Fastest route to validating demand and funding the next product step.',
-      source: 'Strong creator economy demand for polished, ready-made operating dashboards.',
+      label: 'Reliability rule',
+      value: 'Public sources only',
+      detail: 'The pipeline avoids brittle authenticated scraping so daily automation stays dependable.',
     },
-    {
-      title: 'AI workflow packs for service operators',
-      niche: 'Agencies, consultants, recruiters',
-      model: 'Digital product + subscription upsell',
-      whyNow:
-        'Buyers are more willing to pay for done-for-you automations and prompt systems than generic “learn AI” content.',
-      monetization: '$79–499 upfront + membership upsell',
-      buildAngle: 'Package SOPs, prompts, templates, and automations around one workflow at a time.',
-      signal: 'Strong bridge from one-off product sales into recurring revenue.',
-      source: 'Social content trends around operations AI, automation kits, and workflow templates.',
-    },
-    {
+  ]
+}
+
+function deriveTopOpportunity(selectedIdea, stockTickers, cryptoTickers) {
+  const strongStock = stockTickers.find((item) => item.change > 1)
+  const strongCrypto = cryptoTickers.find((item) => item.change > 1)
+
+  if (strongStock && strongCrypto) {
+    return {
       title: selectedIdea.title,
-      niche: selectedIdea.niche,
-      model: selectedIdea.model,
-      whyNow: selectedIdea.whyNow,
-      monetization: selectedIdea.monetization,
-      buildAngle: selectedIdea.buildAngle,
-      signal: selectedIdea.signal,
-      source: selectedIdea.source,
-    },
-  ],
-  blueprints: [
-    {
-      title: 'Fast validation path',
-      outcome: 'Launch a paid MVP in 7–14 days',
-      stack: 'Landing page + Airtable/Supabase + Stripe + manual concierge backend',
-      moat: 'Speed and buyer feedback before writing too much product code.',
-    },
-    {
-      title: 'Passive-ish product ladder',
-      outcome: 'Move from services to recurring revenue',
-      stack: 'Template/product first, then membership, then SaaS wedge',
-      moat: 'Audience and customer trust compound as you climb the ladder.',
-    },
-    {
-      title: 'Best buyer pattern',
-      outcome: 'Sell to people already wasting time in spreadsheets',
-      stack: 'Simple dashboard, reminders, intake forms, notifications, exports',
-      moat: 'Workflow ownership is harder to replace than content alone.',
-    },
-    {
-      title: 'Distribution edge',
-      outcome: 'Use content as acquisition, not just branding',
-      stack: 'Daily idea posts + weekly roundup + lead magnet + email capture',
-      moat: 'Organic distribution lowers CAC and makes the product feel alive.',
-    },
-  ],
-  marketBrief: [
+      bullets: [
+        `Risk appetite is alive with ${strongStock.symbol} and ${strongCrypto.symbol} both showing positive momentum.`,
+        'That usually supports builder attention, tool spend, and appetite for new workflow products.',
+        'The best monetization angle is still solving one repeated business process end-to-end.',
+      ],
+    }
+  }
+
+  return topOpportunities[now.getUTCDate() % topOpportunities.length]
+}
+
+async function getStockTicker(symbol) {
+  const csv = await fetchText(`https://stooq.com/q/l/?s=${symbol.toLowerCase()}.us&i=d`)
+  const row = csv.trim().split('\n').pop()?.split(',') || []
+  const close = Number(row[6])
+  const open = Number(row[3])
+  const pct = open ? ((close - open) / open) * 100 : 0
+
+  const notes = {
+    NVDA: 'Live Stooq quote; still a strong proxy for AI infrastructure sentiment.',
+    MSFT: 'Live Stooq quote; enterprise distribution keeps it strategically important.',
+    AMD: 'Live Stooq quote; a useful second-order AI infrastructure watch.',
+    SMCI: 'Live Stooq quote; higher-beta infrastructure momentum read.',
+  }
+
+  return {
+    symbol,
+    price: formatUsd(close),
+    change: formatPct(pct),
+    note: notes[symbol] || 'Live daily market quote.',
+  }
+}
+
+async function main() {
+  const [hnAi, btcEthSolLink, nvda, msft, amd, smci] = await Promise.all([
+    fetchJson('https://hn.algolia.com/api/v1/search?query=AI&tags=story&hitsPerPage=8'),
+    fetchJson('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana,chainlink&price_change_percentage=24h'),
+    getStockTicker('NVDA'),
+    getStockTicker('MSFT'),
+    getStockTicker('AMD'),
+    getStockTicker('SMCI'),
+  ])
+
+  const selectedIdea = rotatingIdeas[now.getUTCDate() % rotatingIdeas.length]
+
+  const cryptoMap = new Map(
+    btcEthSolLink.map((coin) => [coin.symbol.toUpperCase(), coin]),
+  )
+
+  const cryptoTickers = ['BTC', 'ETH', 'SOL', 'LINK'].map((symbol) => {
+    const coin = cryptoMap.get(symbol)
+    const notes = {
+      BTC: 'Live CoinGecko price; still the clearest macro sentiment proxy in crypto.',
+      ETH: 'Live CoinGecko price; ecosystem depth remains a key signal.',
+      SOL: 'Live CoinGecko price; keeps strong consumer and builder attention.',
+      LINK: 'Live CoinGecko price; data-rail and infrastructure angle remains relevant.',
+    }
+
+    return {
+      symbol,
+      price: formatUsd(coin?.current_price ?? 0),
+      change: formatPct(coin?.price_change_percentage_24h_in_currency ?? coin?.price_change_percentage_24h ?? 0),
+      note: notes[symbol] || 'Live crypto market read.',
+    }
+  })
+
+  const stockTickers = [nvda, msft, amd, smci]
+  const aiSignals = summarizeAiSignals(hnAi.hits || [])
+  const sourceSignals = deriveSourceSignals(hnAi.hits || [])
+  const topOpportunity = deriveTopOpportunity(selectedIdea, stockTickers, cryptoTickers)
+
+  const marketBrief = [
     {
       title: 'Stocks trend',
-      summary: selectedPulse.stocks,
-      pulse: selectedPulse.pulseA,
+      summary: `Live stock tape shows ${stockTickers[0].symbol} ${stockTickers[0].change >= 0 ? 'up' : 'down'} ${Math.abs(stockTickers[0].change).toFixed(2)}% and ${stockTickers[2].symbol} ${stockTickers[2].change >= 0 ? 'up' : 'down'} ${Math.abs(stockTickers[2].change).toFixed(2)}%. The practical read is that AI infrastructure appetite is still driving attention, but dispersion matters.`,
+      pulse: stockTickers.filter((item) => item.change > 0).length >= 3 ? 'Broad strength' : 'Mixed tape',
     },
     {
       title: 'Crypto trend',
-      summary: selectedPulse.crypto,
-      pulse: selectedPulse.pulseB,
+      summary: `Live crypto tape shows BTC at ${cryptoTickers[0].price}, ETH at ${cryptoTickers[1].price}, and SOL moving ${cryptoTickers[2].change >= 0 ? '+' : ''}${cryptoTickers[2].change.toFixed(2)}% on the day. Momentum is healthiest when majors and infrastructure both participate.`,
+      pulse: cryptoTickers.filter((item) => item.change > 0).length >= 3 ? 'Momentum intact' : 'Selective bid',
     },
     {
       title: 'AI news',
-      summary: selectedPulse.ai,
-      pulse: selectedPulse.pulseC,
+      summary: aiSignals[0]
+        ? `${aiSignals[0].value} is leading live Hacker News attention. The bigger commercial lesson is unchanged: tools that own a workflow keep earning more trust than generic wrappers.`
+        : 'Live AI headlines were checked, but the commercial takeaway remains the same: workflow ownership beats novelty.',
+      pulse: aiSignals[0] ? 'Live builder interest' : 'Steady',
     },
-  ],
-  stockTickers: [
-    { symbol: 'NVDA', price: '$1,184.20', change: 5.4, note: 'Still the core AI sentiment leader.' },
-    { symbol: 'MSFT', price: '$468.15', change: 2.1, note: 'Distribution plus enterprise trust is a huge edge.' },
-    { symbol: 'AMD', price: '$176.42', change: 3.18, note: 'Watch as a second-order AI infrastructure beneficiary.' },
-    { symbol: 'SMCI', price: '$1,041.88', change: 7.8, note: 'High-beta infra momentum remains powerful and volatile.' },
-  ],
-  cryptoTickers: [
-    { symbol: 'BTC', price: '$104,820', change: 3.9, note: 'Primary macro proxy and institutional attention magnet.' },
-    { symbol: 'ETH', price: '$5,260', change: 4.6, note: 'Still relevant for ecosystem depth and network effects.' },
-    { symbol: 'SOL', price: '$214', change: 6.2, note: 'Keeps strong consumer and creator attention.' },
-    { symbol: 'LINK', price: '$21.74', change: 5.08, note: 'Infrastructure and data-rail positioning stays compelling.' },
-  ],
-  aiSignals: [
-    {
-      label: 'Best builder pattern',
-      value: 'Vertical beats generic',
-      detail: 'Niche tools that replace a real workflow still monetize better than broad assistant products.',
-    },
-    {
-      label: 'Launch edge',
-      value: 'Distribution first',
-      detail: 'Founders with an audience or repeatable daily content loop can validate faster and cheaper.',
-    },
-    {
-      label: 'Strongest wedge',
-      value: 'Replace spreadsheets',
-      detail: 'The cleanest opportunities still come from teams duct-taping Sheets, email, and forms together.',
-    },
-    {
-      label: 'Income logic',
-      value: 'Recurring > one-off',
-      detail: 'One-time products help validate, but recurring workflow value is what compounds.',
-    },
-  ],
-  sourceSignals: [
-    {
-      label: 'Primary source',
-      value: 'Reddit pain threads',
-      detail: 'The best ideas come from repeated complaints, workaround posts, and “what tool do you use?” discussions.',
-    },
-    {
-      label: 'Social pattern',
-      value: 'Curated summaries win',
-      detail: 'Short daily research recaps and specific breakdowns outperform vague hustle content.',
-    },
-    {
-      label: 'Update cadence',
-      value: 'Daily refresh ready',
-      detail: 'This page is structured so idea cards and briefs can be swapped daily without redesigning the site.',
-    },
-    {
-      label: 'Filter rule',
-      value: 'Proof over hype',
-      detail: 'The bar is practical demand, buyer budget, and simple implementation — not just trend-chasing.',
-    },
-  ],
-  updateChecklist: [
-    'Pull fresh Reddit and social-media pain points into the idea feed.',
-    'Refresh Market Brief summary cards for stocks, crypto, and AI.',
-    'Swap top opportunity callout when a stronger niche appears.',
-    'Keep only ideas that have a clear buyer, monetization path, and visible market signal.',
-  ],
-  sourceChecklist: [
-    'Reddit founder, agency, recruiting, landlord, and micro-SaaS communities',
-    'X/Twitter creator and operator posts for workflow pain and monetization angles',
-    'AI builder/news feeds for workflow ownership and startup momentum',
-    'Market headlines that shape what buyers pay attention to this week',
-  ],
+  ]
+
+  const siteData = {
+    lastUpdated: stamp,
+    topOpportunity,
+    heroStats: [
+      { label: 'Ideas tracked', value: '6' },
+      { label: 'Update cadence', value: 'Daily live' },
+      { label: 'Data sources', value: 'HN + markets' },
+    ],
+    ideas: [...baseIdeas, { ...selectedIdea }],
+    blueprints: [
+      {
+        title: 'Fast validation path',
+        outcome: 'Launch a paid MVP in 7–14 days',
+        stack: 'Landing page + Airtable/Supabase + Stripe + manual concierge backend',
+        moat: 'Speed and buyer feedback before writing too much product code.',
+      },
+      {
+        title: 'Passive-ish product ladder',
+        outcome: 'Move from services to recurring revenue',
+        stack: 'Template/product first, then membership, then SaaS wedge',
+        moat: 'Audience and customer trust compound as you climb the ladder.',
+      },
+      {
+        title: 'Best buyer pattern',
+        outcome: 'Sell to people already wasting time in spreadsheets',
+        stack: 'Simple dashboard, reminders, intake forms, notifications, exports',
+        moat: 'Workflow ownership is harder to replace than content alone.',
+      },
+      {
+        title: 'Distribution edge',
+        outcome: 'Use content as acquisition, not just branding',
+        stack: 'Daily idea posts + weekly roundup + lead magnet + email capture',
+        moat: 'Organic distribution lowers CAC and makes the product feel alive.',
+      },
+    ],
+    marketBrief,
+    stockTickers,
+    cryptoTickers,
+    aiSignals,
+    sourceSignals,
+    updateChecklist: [
+      'Refresh live market data from public stock and crypto endpoints.',
+      'Pull live AI headline signals from Hacker News search.',
+      'Rotate the final passive-income idea using current operator-demand patterns.',
+      'Publish only when the site data changes and the build passes.',
+    ],
+    sourceChecklist,
+  }
+
+  const header = `export type Idea = {\n  title: string\n  niche: string\n  model: string\n  whyNow: string\n  monetization: string\n  buildAngle: string\n  signal: string\n  source: string\n}\n\nexport type Blueprint = {\n  title: string\n  outcome: string\n  stack: string\n  moat: string\n}\n\nexport type BriefCard = {\n  title: string\n  summary: string\n  pulse: string\n}\n\nexport type Ticker = {\n  symbol: string\n  price: string\n  change: number\n  note: string\n}\n\nexport type SignalCard = {\n  label: string\n  value: string\n  detail: string\n}\n\nexport type SiteData = {\n  lastUpdated: string\n  topOpportunity: {\n    title: string\n    bullets: string[]\n  }\n  heroStats: Array<{ label: string; value: string }>\n  ideas: Idea[]\n  blueprints: Blueprint[]\n  marketBrief: BriefCard[]\n  stockTickers: Ticker[]\n  cryptoTickers: Ticker[]\n  aiSignals: SignalCard[]\n  sourceSignals: SignalCard[]\n  updateChecklist: string[]\n  sourceChecklist: string[]\n}\n\nexport const siteData: SiteData = `
+
+  await fs.writeFile(filePath, `${header}${JSON.stringify(siteData, null, 2)}\n`)
+  console.log('Updated live site data for', stamp)
 }
 
-const header = `export type Idea = {\n  title: string\n  niche: string\n  model: string\n  whyNow: string\n  monetization: string\n  buildAngle: string\n  signal: string\n  source: string\n}\n\nexport type Blueprint = {\n  title: string\n  outcome: string\n  stack: string\n  moat: string\n}\n\nexport type BriefCard = {\n  title: string\n  summary: string\n  pulse: string\n}\n\nexport type Ticker = {\n  symbol: string\n  price: string\n  change: number\n  note: string\n}\n\nexport type SignalCard = {\n  label: string\n  value: string\n  detail: string\n}\n\nexport type SiteData = {\n  lastUpdated: string\n  topOpportunity: {\n    title: string\n    bullets: string[]\n  }\n  heroStats: Array<{ label: string; value: string }>\n  ideas: Idea[]\n  blueprints: Blueprint[]\n  marketBrief: BriefCard[]\n  stockTickers: Ticker[]\n  cryptoTickers: Ticker[]\n  aiSignals: SignalCard[]\n  sourceSignals: SignalCard[]\n  updateChecklist: string[]\n  sourceChecklist: string[]\n}\n\nexport const siteData: SiteData = `
-
-await fs.writeFile(filePath, `${header}${JSON.stringify(siteData, null, 2)}\n`)
-console.log('Updated site data for', stamp)
+main().catch((error) => {
+  console.error(error)
+  process.exit(1)
+})

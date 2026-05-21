@@ -54,13 +54,13 @@ export type SiteData = {
 }
 
 export const siteData: SiteData = {
-  "lastUpdated": "21 May 2026 · 22:56 UTC",
+  "lastUpdated": "21 May 2026 · 23:00 UTC",
   "topOpportunity": {
-    "title": "Agency intake + approvals SaaS",
+    "title": "Quote follow-up tracker for local service businesses",
     "bullets": [
-      "Frequent pain tied directly to client delivery",
-      "Easy to validate with agencies already using messy workarounds",
-      "Natural path from MVP to higher-value workflow ownership"
+      "Risk appetite is alive with AMD and SOL both showing positive momentum.",
+      "That usually supports builder attention, tool spend, and appetite for new workflow products.",
+      "The best monetization angle is still solving one repeated business process end-to-end."
     ]
   },
   "heroStats": [
@@ -70,11 +70,11 @@ export const siteData: SiteData = {
     },
     {
       "label": "Update cadence",
-      "value": "Daily"
+      "value": "Daily live"
     },
     {
-      "label": "Best model",
-      "value": "Micro-SaaS"
+      "label": "Data sources",
+      "value": "HN + markets"
     }
   ],
   "ideas": [
@@ -86,7 +86,7 @@ export const siteData: SiteData = {
       "monetization": "$49–199/mo",
       "buildAngle": "Start with onboarding checklists, asset collection, and approval trails.",
       "signal": "Pain is frequent, easy to demo, and tied to revenue delivery.",
-      "source": "Repeated Reddit pain in r/agency, r/PPC, and service-business founder posts."
+      "source": "Operator pattern: agencies still stitch onboarding together with forms, docs, and email."
     },
     {
       "title": "Recruiter inbox-to-pipeline tracker",
@@ -96,7 +96,7 @@ export const siteData: SiteData = {
       "monetization": "$39–149/mo",
       "buildAngle": "Unify candidate capture first, then layer reporting and follow-up reminders.",
       "signal": "Spreadsheet replacement with clear workflow ROI.",
-      "source": "Reddit recruiting communities and founder chatter around messy inbound hiring ops."
+      "source": "Operator pattern: recruiting teams keep patching workflows across inboxes and spreadsheets."
     },
     {
       "title": "Maintenance update portal for small landlords",
@@ -106,7 +106,7 @@ export const siteData: SiteData = {
       "monetization": "$29–99/mo",
       "buildAngle": "Focus on maintenance requests, status updates, vendor coordination, and tenant visibility.",
       "signal": "Simple recurring pain, though more price sensitive than agency tools.",
-      "source": "Posts in landlord and property-management communities asking for lightweight tools."
+      "source": "Operator pattern: lightweight property workflows still beat bloated all-in-one suites for small owners."
     },
     {
       "title": "Premium niche dashboard template packs",
@@ -116,7 +116,7 @@ export const siteData: SiteData = {
       "monetization": "$49–299 one-time",
       "buildAngle": "Sell templates first, then upsell a hosted version or premium data layer.",
       "signal": "Fastest route to validating demand and funding the next product step.",
-      "source": "Strong creator economy demand for polished, ready-made operating dashboards."
+      "source": "Creator pattern: polished operating assets still convert when they save setup time."
     },
     {
       "title": "AI workflow packs for service operators",
@@ -126,7 +126,7 @@ export const siteData: SiteData = {
       "monetization": "$79–499 upfront + membership upsell",
       "buildAngle": "Package SOPs, prompts, templates, and automations around one workflow at a time.",
       "signal": "Strong bridge from one-off product sales into recurring revenue.",
-      "source": "Social content trends around operations AI, automation kits, and workflow templates."
+      "source": "AI operator pattern: practical workflow kits beat abstract education."
     },
     {
       "title": "Quote follow-up tracker for local service businesses",
@@ -136,7 +136,7 @@ export const siteData: SiteData = {
       "monetization": "$39–129/mo",
       "buildAngle": "Track sent quotes, reminders, follow-up status, and close-rate reporting.",
       "signal": "Revenue-adjacent pain with direct ROI is easier to sell.",
-      "source": "Common small-business complaint across service operator communities and sales threads."
+      "source": "Live business-signal rotation: quote follow-up remains a recurring operational leak for local service teams."
     }
   ],
   "blueprints": [
@@ -168,126 +168,126 @@ export const siteData: SiteData = {
   "marketBrief": [
     {
       "title": "Stocks trend",
-      "summary": "Market attention is still clustering around AI beneficiaries, but buyers are increasingly watching for profitable follow-through rather than headlines alone.",
-      "pulse": "Measured risk-on"
+      "summary": "Live stock tape shows NVDA down 1.25% and AMD up 1.70%. The practical read is that AI infrastructure appetite is still driving attention, but dispersion matters.",
+      "pulse": "Mixed tape"
     },
     {
       "title": "Crypto trend",
-      "summary": "Crypto momentum stays healthiest in liquid majors and infrastructure names with clear utility narratives.",
-      "pulse": "Quality bid"
+      "summary": "Live crypto tape shows BTC at $77,547, ETH at $2,130, and SOL moving +1.39% on the day. Momentum is healthiest when majors and infrastructure both participate.",
+      "pulse": "Momentum intact"
     },
     {
       "title": "AI news",
-      "summary": "The strongest AI companies are selling time savings and workflow ownership, not just access to models.",
-      "pulse": "Workflow winners"
+      "summary": "Don't post generated/AI-edited comments. HN is for conversation  is leading live Hacker News attention. The bigger commercial lesson is unchanged: tools that own a workflow keep earning more trust than generic wrappers.",
+      "pulse": "Live builder interest"
     }
   ],
   "stockTickers": [
     {
       "symbol": "NVDA",
-      "price": "$1,184.20",
-      "change": 5.4,
-      "note": "Still the core AI sentiment leader."
+      "price": "$219.51",
+      "change": -1.25,
+      "note": "Live Stooq quote; still a strong proxy for AI infrastructure sentiment."
     },
     {
       "symbol": "MSFT",
-      "price": "$468.15",
-      "change": 2.1,
-      "note": "Distribution plus enterprise trust is a huge edge."
+      "price": "$419.10",
+      "change": -1.33,
+      "note": "Live Stooq quote; enterprise distribution keeps it strategically important."
     },
     {
       "symbol": "AMD",
-      "price": "$176.42",
-      "change": 3.18,
-      "note": "Watch as a second-order AI infrastructure beneficiary."
+      "price": "$449.51",
+      "change": 1.7,
+      "note": "Live Stooq quote; a useful second-order AI infrastructure watch."
     },
     {
       "symbol": "SMCI",
-      "price": "$1,041.88",
-      "change": 7.8,
-      "note": "High-beta infra momentum remains powerful and volatile."
+      "price": "$33.45",
+      "change": 1.49,
+      "note": "Live Stooq quote; higher-beta infrastructure momentum read."
     }
   ],
   "cryptoTickers": [
     {
       "symbol": "BTC",
-      "price": "$104,820",
-      "change": 3.9,
-      "note": "Primary macro proxy and institutional attention magnet."
+      "price": "$77,547",
+      "change": 0.19,
+      "note": "Live CoinGecko price; still the clearest macro sentiment proxy in crypto."
     },
     {
       "symbol": "ETH",
-      "price": "$5,260",
-      "change": 4.6,
-      "note": "Still relevant for ecosystem depth and network effects."
+      "price": "$2,130",
+      "change": 0.24,
+      "note": "Live CoinGecko price; ecosystem depth remains a key signal."
     },
     {
       "symbol": "SOL",
-      "price": "$214",
-      "change": 6.2,
-      "note": "Keeps strong consumer and creator attention."
+      "price": "$87.11",
+      "change": 1.39,
+      "note": "Live CoinGecko price; keeps strong consumer and builder attention."
     },
     {
       "symbol": "LINK",
-      "price": "$21.74",
-      "change": 5.08,
-      "note": "Infrastructure and data-rail positioning stays compelling."
+      "price": "$9.73",
+      "change": 1.17,
+      "note": "Live CoinGecko price; data-rail and infrastructure angle remains relevant."
     }
   ],
   "aiSignals": [
     {
-      "label": "Best builder pattern",
-      "value": "Vertical beats generic",
-      "detail": "Niche tools that replace a real workflow still monetize better than broad assistant products."
+      "label": "Top AI headline",
+      "value": "Don't post generated/AI-edited comments. HN is for conversation ",
+      "detail": "Live HN signal with 4229 points. Builder attention is clustering around this theme right now."
     },
     {
-      "label": "Launch edge",
-      "value": "Distribution first",
-      "detail": "Founders with an audience or repeatable daily content loop can validate faster and cheaper."
+      "label": "AI signal 2",
+      "value": "Airfoil",
+      "detail": "Live HN signal with 2544 points. Builder attention is clustering around this theme right now."
     },
     {
-      "label": "Strongest wedge",
-      "value": "Replace spreadsheets",
-      "detail": "The cleanest opportunities still come from teams duct-taping Sheets, email, and forms together."
+      "label": "AI signal 3",
+      "value": "Open source AI is the path forward",
+      "detail": "Live HN signal with 2360 points. Builder attention is clustering around this theme right now."
     },
     {
-      "label": "Income logic",
-      "value": "Recurring > one-off",
-      "detail": "One-time products help validate, but recurring workflow value is what compounds."
+      "label": "AI signal 4",
+      "value": "My AI skeptic friends are all nuts",
+      "detail": "Live HN signal with 2356 points. Builder attention is clustering around this theme right now."
     }
   ],
   "sourceSignals": [
     {
-      "label": "Primary source",
-      "value": "Reddit pain threads",
-      "detail": "The best ideas come from repeated complaints, workaround posts, and “what tool do you use?” discussions."
+      "label": "AI source pulse",
+      "value": "HN active",
+      "detail": "Top live headline: Don't post generated/AI-edited comments. HN is for conversation between humans"
     },
     {
-      "label": "Social pattern",
-      "value": "Curated summaries win",
-      "detail": "Short daily research recaps and specific breakdowns outperform vague hustle content."
+      "label": "Market data",
+      "value": "CoinGecko + Stooq",
+      "detail": "Crypto and stock watchlists are refreshed from public market endpoints during each run."
     },
     {
-      "label": "Update cadence",
-      "value": "Daily refresh ready",
-      "detail": "This page is structured so idea cards and briefs can be swapped daily without redesigning the site."
+      "label": "Business idea engine",
+      "value": "Operator-pattern rotation",
+      "detail": "Idea feed blends stable operator pain points with a rotating live-research wedge."
     },
     {
-      "label": "Filter rule",
-      "value": "Proof over hype",
-      "detail": "The bar is practical demand, buyer budget, and simple implementation — not just trend-chasing."
+      "label": "Reliability rule",
+      "value": "Public sources only",
+      "detail": "The pipeline avoids brittle authenticated scraping so daily automation stays dependable."
     }
   ],
   "updateChecklist": [
-    "Pull fresh Reddit and social-media pain points into the idea feed.",
-    "Refresh Market Brief summary cards for stocks, crypto, and AI.",
-    "Swap top opportunity callout when a stronger niche appears.",
-    "Keep only ideas that have a clear buyer, monetization path, and visible market signal."
+    "Refresh live market data from public stock and crypto endpoints.",
+    "Pull live AI headline signals from Hacker News search.",
+    "Rotate the final passive-income idea using current operator-demand patterns.",
+    "Publish only when the site data changes and the build passes."
   ],
   "sourceChecklist": [
-    "Reddit founder, agency, recruiting, landlord, and micro-SaaS communities",
-    "X/Twitter creator and operator posts for workflow pain and monetization angles",
-    "AI builder/news feeds for workflow ownership and startup momentum",
-    "Market headlines that shape what buyers pay attention to this week"
+    "Hacker News search for AI stories and builder themes",
+    "CoinGecko market data for BTC, ETH, SOL, and LINK",
+    "Stooq daily stock quotes for NVDA, MSFT, AMD, and SMCI",
+    "Rotating operator-demand patterns for passive-income idea generation"
   ]
 }

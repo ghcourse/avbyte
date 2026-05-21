@@ -53,6 +53,8 @@ Use `content/daily-update-template.md` as the source-of-truth checklist when ref
 - research source notes from Reddit and social media
 
 Automation included:
-- `npm run update:data` rotates the site data stamp and refreshes selected content blocks
+- `npm run update:data` fetches live public data and regenerates the site data file
+- live sources currently used: Hacker News Algolia API, CoinGecko, and Stooq
 - `.github/workflows/daily-refresh.yml` runs daily and pushes changes to `main`
 - the existing Pages workflow then deploys the refreshed site automatically
+- Reddit/social scraping was intentionally avoided in automation because the public endpoints were blocked or rate-limited from this environment
