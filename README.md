@@ -1,17 +1,19 @@
 # avbyte
 
-A vibrant React + Vite site for a marketing and social networking concept focused on:
-- latest market trends
-- trending stocks
-- crypto news
-- AI news
-- community and creator momentum
+A vibrant React + Vite site focused on:
+- passive-income business ideas
+- niche micro-SaaS opportunities
+- daily market brief updates
+- trending stocks, crypto, and AI news
+- research-backed signals from Reddit and social media
 
 ## Highlights
 
 - premium neon/glassmorphism dashboard with tabbed navigation
-- live browser-side stock, crypto, market, and AI feed integrations
-- graceful demo fallback when external feeds are unavailable
+- passive-income idea feed with monetization and build-angle framing
+- market brief section for stocks, crypto, and AI
+- research source panel for social-media and Reddit mining
+- lightweight editorial template for daily updates
 - GitHub Pages-compatible Vite configuration
 - automatic deployment with GitHub Actions
 
@@ -39,10 +41,13 @@ After enabling **Settings → Pages → Source: GitHub Actions**, every push to 
 
 ## Notes
 
-Because GitHub Pages is a static host, the app uses browser-side public feeds and falls back to polished demo content if a provider blocks requests or rate-limits traffic.
+Because GitHub Pages is a static host, the current site is structured as a polished editorial dashboard with curated content that can be refreshed daily.
 
-Current live feed sources used by the dashboard:
-- Yahoo Finance public search endpoint for stock quotes
-- CoinGecko public markets endpoint for crypto pricing
-- Reddit JSON feeds for market discussion headlines
-- Hacker News Algolia API for AI-related stories
+## Daily updates
+
+Use `content/daily-update-template.md` as the source-of-truth checklist when refreshing:
+- passive-income idea cards
+- market brief summaries
+- stock and crypto watchlists
+- AI / builder signals
+- research source notes from Reddit and social media

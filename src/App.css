@@ -87,7 +87,9 @@ ul {
 .signal-card,
 .ticker-card,
 .story-card,
-.metric-card {
+.metric-card,
+.idea-build-box,
+.blueprint-moat {
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -255,22 +257,11 @@ ul {
 .signal-card,
 .metric-card,
 .ticker-card,
-.story-card {
+.story-card,
+.idea-build-box,
+.blueprint-moat {
   border-radius: 22px;
   padding: 18px;
-}
-
-.workbench-image-card {
-  gap: 16px;
-}
-
-.workbench-preview-image {
-  width: 100%;
-  margin-top: 18px;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
-  box-shadow: 0 24px 60px rgba(1, 4, 15, 0.35);
 }
 
 .signal-card span,
@@ -280,7 +271,9 @@ ul {
 .story-source,
 .focus-list li,
 .bullet-list li,
-.ticker-card p {
+.ticker-card p,
+.idea-build-box p,
+.blueprint-moat {
   color: rgba(231, 237, 255, 0.72);
 }
 
@@ -294,7 +287,8 @@ ul {
 .signal-card p,
 .metric-card p,
 .ticker-card p,
-.story-card p {
+.story-card p,
+.idea-build-box p {
   line-height: 1.6;
 }
 
@@ -411,9 +405,42 @@ ul {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
-.story-stack .story-list,
-.ai-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.idea-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.idea-card {
+  display: grid;
+  gap: 16px;
+}
+
+.card-copy {
+  color: rgba(231, 237, 255, 0.78);
+  line-height: 1.7;
+}
+
+.idea-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.metric-card.compact strong {
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+
+.idea-build-box {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.idea-build-box span {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #79e9ff;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
 }
 
 .story-topline,
@@ -440,7 +467,7 @@ ul {
 
 .story-source {
   display: inline-block;
-  margin-top: 14px;
+  margin-top: 4px;
 }
 
 .bullet-list {
@@ -454,6 +481,25 @@ ul {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.blueprint-grid,
+.source-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.blueprint-card {
+  display: grid;
+  gap: 10px;
+}
+
+.blueprint-moat {
+  background: rgba(255, 255, 255, 0.035);
+  line-height: 1.55;
+}
+
+.source-note-card {
+  align-self: start;
+}
+
 .ticker-card strong {
   font-size: 1rem;
 }
@@ -463,22 +509,23 @@ ul {
   margin-top: 14px;
 }
 
-.up {
+.positive {
   color: #64f0a2;
 }
 
-.down {
+.negative {
   color: #ff8a9b;
 }
 
 @media (max-width: 1080px) {
   .hero-grid,
   .overview-grid,
-  .story-stack .story-list,
-  .ai-grid,
+  .idea-grid,
   .ticker-grid,
   .signal-grid,
-  .signal-strip {
+  .signal-strip,
+  .blueprint-grid,
+  .source-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -505,11 +552,13 @@ ul {
 
   .hero-grid,
   .overview-grid,
-  .story-stack .story-list,
-  .ai-grid,
+  .idea-grid,
   .ticker-grid,
   .signal-grid,
-  .signal-strip {
+  .signal-strip,
+  .idea-meta,
+  .blueprint-grid,
+  .source-grid {
     grid-template-columns: 1fr;
   }
 
