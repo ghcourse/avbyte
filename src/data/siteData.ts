@@ -54,13 +54,13 @@ export type SiteData = {
 }
 
 export const siteData: SiteData = {
-  "lastUpdated": "21 May 2026 · 23:00 UTC",
+  "lastUpdated": "21 May 2026 · 23:03 UTC",
   "topOpportunity": {
     "title": "Quote follow-up tracker for local service businesses",
     "bullets": [
-      "Risk appetite is alive with AMD and SOL both showing positive momentum.",
-      "That usually supports builder attention, tool spend, and appetite for new workflow products.",
-      "The best monetization angle is still solving one repeated business process end-to-end."
+      "Research theme winner today: AI.",
+      "Risk appetite is healthy enough that builders are more likely to pay attention to new tools and workflow products.",
+      "The best monetization angle remains owning one repeated operational problem from intake to follow-up to reporting."
     ]
   },
   "heroStats": [
@@ -73,8 +73,8 @@ export const siteData: SiteData = {
       "value": "Daily live"
     },
     {
-      "label": "Data sources",
-      "value": "HN + markets"
+      "label": "Research spread",
+      "value": "5 queries"
     }
   ],
   "ideas": [
@@ -173,13 +173,13 @@ export const siteData: SiteData = {
     },
     {
       "title": "Crypto trend",
-      "summary": "Live crypto tape shows BTC at $77,547, ETH at $2,130, and SOL moving +1.39% on the day. Momentum is healthiest when majors and infrastructure both participate.",
+      "summary": "Live crypto tape shows BTC at $77,524, ETH at $2,129, and SOL moving +1.37% on the day. Momentum is healthiest when majors and infrastructure both participate.",
       "pulse": "Momentum intact"
     },
     {
       "title": "AI news",
-      "summary": "Don't post generated/AI-edited comments. HN is for conversation  is leading live Hacker News attention. The bigger commercial lesson is unchanged: tools that own a workflow keep earning more trust than generic wrappers.",
-      "pulse": "Live builder interest"
+      "summary": "Don't post generated/AI-edited comments. HN is for conversation between humans is the strongest live cross-query signal right now. The synthesis takeaway: builders still reward products that automate real work, but trust and workflow depth matter more than hype alone.",
+      "pulse": "AI"
     }
   ],
   "stockTickers": [
@@ -211,83 +211,83 @@ export const siteData: SiteData = {
   "cryptoTickers": [
     {
       "symbol": "BTC",
-      "price": "$77,547",
-      "change": 0.19,
+      "price": "$77,524",
+      "change": 0.16,
       "note": "Live CoinGecko price; still the clearest macro sentiment proxy in crypto."
     },
     {
       "symbol": "ETH",
-      "price": "$2,130",
-      "change": 0.24,
+      "price": "$2,129",
+      "change": 0.18,
       "note": "Live CoinGecko price; ecosystem depth remains a key signal."
     },
     {
       "symbol": "SOL",
-      "price": "$87.11",
-      "change": 1.39,
+      "price": "$87.08",
+      "change": 1.37,
       "note": "Live CoinGecko price; keeps strong consumer and builder attention."
     },
     {
       "symbol": "LINK",
-      "price": "$9.73",
-      "change": 1.17,
+      "price": "$9.72",
+      "change": 1.2,
       "note": "Live CoinGecko price; data-rail and infrastructure angle remains relevant."
     }
   ],
   "aiSignals": [
     {
-      "label": "Top AI headline",
+      "label": "Strongest active theme",
+      "value": "AI",
+      "detail": "Builders are still watching broad AI platform shifts, but skepticism is rising around shallow wrappers."
+    },
+    {
+      "label": "Top live signal",
       "value": "Don't post generated/AI-edited comments. HN is for conversation ",
-      "detail": "Live HN signal with 4229 points. Builder attention is clustering around this theme right now."
+      "detail": "AI query • 4229 points • 1668 comments. Builders are still watching broad AI platform shifts, but skepticism is rising around shallow wrappers."
     },
     {
-      "label": "AI signal 2",
-      "value": "Airfoil",
-      "detail": "Live HN signal with 2544 points. Builder attention is clustering around this theme right now."
-    },
-    {
-      "label": "AI signal 3",
-      "value": "Open source AI is the path forward",
-      "detail": "Live HN signal with 2360 points. Builder attention is clustering around this theme right now."
-    },
-    {
-      "label": "AI signal 4",
+      "label": "Live signal 2",
       "value": "My AI skeptic friends are all nuts",
-      "detail": "Live HN signal with 2356 points. Builder attention is clustering around this theme right now."
+      "detail": "AI query • 2356 points • 2826 comments. Builders are still watching broad AI platform shifts, but skepticism is rising around shallow wrappers."
+    },
+    {
+      "label": "Live signal 3",
+      "value": "Airfoil",
+      "detail": "AI query • 2544 points • 296 comments. Builders are still watching broad AI platform shifts, but skepticism is rising around shallow wrappers."
     }
   ],
   "sourceSignals": [
     {
-      "label": "AI source pulse",
-      "value": "HN active",
-      "detail": "Top live headline: Don't post generated/AI-edited comments. HN is for conversation between humans"
+      "label": "Research spread",
+      "value": "5 HN queries",
+      "detail": "The pipeline now synthesizes multiple builder/news themes instead of relying on a single AI search."
+    },
+    {
+      "label": "Strongest theme",
+      "value": "AI",
+      "detail": "Builders are still watching broad AI platform shifts, but skepticism is rising around shallow wrappers."
+    },
+    {
+      "label": "Top headline count",
+      "value": "38",
+      "detail": "Unique HN results are deduplicated and folded into a single synthesis layer before publishing."
     },
     {
       "label": "Market data",
       "value": "CoinGecko + Stooq",
-      "detail": "Crypto and stock watchlists are refreshed from public market endpoints during each run."
-    },
-    {
-      "label": "Business idea engine",
-      "value": "Operator-pattern rotation",
-      "detail": "Idea feed blends stable operator pain points with a rotating live-research wedge."
-    },
-    {
-      "label": "Reliability rule",
-      "value": "Public sources only",
-      "detail": "The pipeline avoids brittle authenticated scraping so daily automation stays dependable."
+      "detail": "Crypto and stock watchlists are refreshed from live public endpoints during each run."
     }
   ],
   "updateChecklist": [
+    "Run multiple HN queries and deduplicate results into one synthesis layer.",
     "Refresh live market data from public stock and crypto endpoints.",
-    "Pull live AI headline signals from Hacker News search.",
-    "Rotate the final passive-income idea using current operator-demand patterns.",
-    "Publish only when the site data changes and the build passes."
+    "Map the strongest current theme to a more specific passive-income idea wedge.",
+    "Publish only when the regenerated data passes a full site build."
   ],
   "sourceChecklist": [
-    "Hacker News search for AI stories and builder themes",
+    "Hacker News multi-query search for AI, agents, automation, micro-SaaS, and startup stories",
     "CoinGecko market data for BTC, ETH, SOL, and LINK",
     "Stooq daily stock quotes for NVDA, MSFT, AMD, and SMCI",
-    "Rotating operator-demand patterns for passive-income idea generation"
+    "Operator-demand patterns mapped to the strongest active HN themes"
   ]
 }

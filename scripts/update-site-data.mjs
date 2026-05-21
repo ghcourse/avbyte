@@ -6,6 +6,14 @@ const now = new Date()
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const stamp = `${String(now.getUTCDate()).padStart(2, '0')} ${months[now.getUTCMonth()]} ${now.getUTCFullYear()} · ${String(now.getUTCHours()).padStart(2, '0')}:${String(now.getUTCMinutes()).padStart(2, '0')} UTC`
 
+const hnQueries = [
+  { key: 'ai', query: 'AI', label: 'AI' },
+  { key: 'ai_agents', query: 'AI agents', label: 'AI agents' },
+  { key: 'automation', query: 'automation', label: 'automation' },
+  { key: 'micro_saas', query: 'micro saas', label: 'micro-SaaS' },
+  { key: 'startup', query: 'startup', label: 'startup' },
+]
+
 const baseIdeas = [
   {
     title: 'Client intake + approvals hub for niche agencies',
@@ -75,6 +83,7 @@ const rotatingIdeas = [
     buildAngle: 'Track sent quotes, reminders, follow-up status, and close-rate reporting.',
     signal: 'Revenue-adjacent pain with direct ROI is easier to sell.',
     source: 'Live business-signal rotation: quote follow-up remains a recurring operational leak for local service teams.',
+    theme: 'automation',
   },
   {
     title: 'Membership library of niche AI SOPs',
@@ -86,6 +95,7 @@ const rotatingIdeas = [
     buildAngle: 'Ship a growing library of prompts, SOPs, automations, and implementation notes.',
     signal: 'Content plus utility can compound when updated consistently.',
     source: 'Live business-signal rotation: practical AI implementation remains an active demand theme.',
+    theme: 'ai_agents',
   },
   {
     title: 'Customer onboarding portal for boutique B2B firms',
@@ -97,41 +107,27 @@ const rotatingIdeas = [
     buildAngle: 'Combine intake, milestones, document collection, and status visibility.',
     signal: 'Strong spreadsheet-replacement pattern with premium buyer potential.',
     source: 'Live business-signal rotation: onboarding chaos is still a sticky, monetizable workflow problem.',
-  },
-]
-
-const topOpportunities = [
-  {
-    title: 'Agency intake + approvals SaaS',
-    bullets: [
-      'Frequent pain tied directly to client delivery',
-      'Easy to validate with agencies already using messy workarounds',
-      'Natural path from MVP to higher-value workflow ownership',
-    ],
+    theme: 'startup',
   },
   {
-    title: 'Quote follow-up CRM for local service businesses',
-    bullets: [
-      'Clear ROI when lost quotes are recovered',
-      'Simple feature scope for a fast MVP',
-      'Recurring operational need instead of one-time novelty',
-    ],
-  },
-  {
-    title: 'AI SOP membership for operators',
-    bullets: [
-      'Compounding content model with recurring revenue',
-      'Good fit for daily publishing and audience growth',
-      'Can expand into templates, automations, and software later',
-    ],
+    title: 'Micro-SaaS benchmark library for Shopify and creator tools',
+    niche: 'Indie founders and operators',
+    model: 'Membership + data product',
+    whyNow:
+      'Founders want concrete examples of simple software businesses that actually sell, especially in ecosystems with built-in distribution.',
+    monetization: '$19–59/mo',
+    buildAngle: 'Ship case studies, teardown dashboards, benchmark tables, and recurring market maps.',
+    signal: 'Information products with proof and curation can compound when updated frequently.',
+    source: 'Live business-signal rotation: micro-SaaS curiosity stays durable during founder-market slowdowns.',
+    theme: 'micro_saas',
   },
 ]
 
 const sourceChecklist = [
-  'Hacker News search for AI stories and builder themes',
+  'Hacker News multi-query search for AI, agents, automation, micro-SaaS, and startup stories',
   'CoinGecko market data for BTC, ETH, SOL, and LINK',
   'Stooq daily stock quotes for NVDA, MSFT, AMD, and SMCI',
-  'Rotating operator-demand patterns for passive-income idea generation',
+  'Operator-demand patterns mapped to the strongest active HN themes',
 ]
 
 async function fetchJson(url) {
@@ -160,70 +156,115 @@ function cleanTitle(title) {
   return String(title || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
 }
 
-function summarizeAiSignals(hits) {
-  const cleanHits = hits
+function normalizeHits(queryKey, hits) {
+  return (hits || [])
     .map((hit) => ({
+      queryKey,
       title: cleanTitle(hit.title || hit.story_title || ''),
       points: hit.points ?? 0,
+      comments: hit.num_comments ?? 0,
+      url: hit.url || hit.story_url || '',
     }))
     .filter((hit) => hit.title)
-    .slice(0, 4)
-
-  return cleanHits.map((hit, index) => ({
-    label: index === 0 ? 'Top AI headline' : `AI signal ${index + 1}`,
-    value: hit.title.slice(0, 64),
-    detail: `Live HN signal with ${hit.points} points. Builder attention is clustering around this theme right now.`,
-  }))
 }
 
-function deriveSourceSignals(aiHits) {
-  const topTitles = aiHits
-    .map((hit) => cleanTitle(hit.title || hit.story_title || ''))
-    .filter(Boolean)
-    .slice(0, 2)
+function scoreHit(hit) {
+  return hit.points * 2 + hit.comments * 0.5
+}
+
+function summarizeTheme(queryKey) {
+  const map = {
+    ai: 'Builders are still watching broad AI platform shifts, but skepticism is rising around shallow wrappers.',
+    ai_agents: 'Agent discussions are active, but trust, failure modes, and maintenance overhead are central concerns.',
+    automation: 'Automation interest remains healthy when tools save labor directly and fit existing workflows.',
+    micro_saas: 'Founders still want small, focused software businesses with simple buyer stories and low operating drag.',
+    startup: 'Startup attention is rewarding practical, durable execution more than abstract ambition.',
+  }
+  return map[queryKey] || 'Current builder attention is clustered around practical workflow leverage.'
+}
+
+function buildAiSignals(allHits, byQuery) {
+  const ranked = [...allHits].sort((a, b) => scoreHit(b) - scoreHit(a)).slice(0, 4)
+  const topQuery = Object.entries(byQuery)
+    .map(([key, hits]) => ({ key, total: hits.slice(0, 3).reduce((sum, hit) => sum + scoreHit(hit), 0) }))
+    .sort((a, b) => b.total - a.total)[0]
+
+  const signals = ranked.map((hit, index) => ({
+    label: index === 0 ? 'Top live signal' : `Live signal ${index + 1}`,
+    value: hit.title.slice(0, 64),
+    detail: `${hnQueries.find((item) => item.key === hit.queryKey)?.label || hit.queryKey} query • ${hit.points} points • ${hit.comments} comments. ${summarizeTheme(hit.queryKey)}`,
+  }))
+
+  if (topQuery) {
+    signals.unshift({
+      label: 'Strongest active theme',
+      value: hnQueries.find((item) => item.key === topQuery.key)?.label || topQuery.key,
+      detail: summarizeTheme(topQuery.key),
+    })
+  }
+
+  return signals.slice(0, 4)
+}
+
+function deriveSourceSignals(allHits, byQuery) {
+  const strongest = Object.entries(byQuery)
+    .map(([key, hits]) => ({ key, total: hits.slice(0, 3).reduce((sum, hit) => sum + scoreHit(hit), 0) }))
+    .sort((a, b) => b.total - a.total)
 
   return [
     {
-      label: 'AI source pulse',
-      value: topTitles[0] ? 'HN active' : 'HN checked',
-      detail: topTitles[0]
-        ? `Top live headline: ${topTitles[0]}`
-        : 'Checked live AI headlines from Hacker News search.',
+      label: 'Research spread',
+      value: `${hnQueries.length} HN queries`,
+      detail: 'The pipeline now synthesizes multiple builder/news themes instead of relying on a single AI search.',
+    },
+    {
+      label: 'Strongest theme',
+      value: hnQueries.find((item) => item.key === strongest[0]?.key)?.label || 'Mixed',
+      detail: strongest[0] ? summarizeTheme(strongest[0].key) : 'No dominant theme detected.',
+    },
+    {
+      label: 'Top headline count',
+      value: String(allHits.length),
+      detail: 'Unique HN results are deduplicated and folded into a single synthesis layer before publishing.',
     },
     {
       label: 'Market data',
       value: 'CoinGecko + Stooq',
-      detail: 'Crypto and stock watchlists are refreshed from public market endpoints during each run.',
-    },
-    {
-      label: 'Business idea engine',
-      value: 'Operator-pattern rotation',
-      detail: 'Idea feed blends stable operator pain points with a rotating live-research wedge.',
-    },
-    {
-      label: 'Reliability rule',
-      value: 'Public sources only',
-      detail: 'The pipeline avoids brittle authenticated scraping so daily automation stays dependable.',
+      detail: 'Crypto and stock watchlists are refreshed from live public endpoints during each run.',
     },
   ]
 }
 
-function deriveTopOpportunity(selectedIdea, stockTickers, cryptoTickers) {
-  const strongStock = stockTickers.find((item) => item.change > 1)
-  const strongCrypto = cryptoTickers.find((item) => item.change > 1)
+function pickIdea(allHits, strongestThemeKey) {
+  const mapped = rotatingIdeas.find((idea) => idea.theme === strongestThemeKey)
+  if (mapped) return mapped
 
-  if (strongStock && strongCrypto) {
-    return {
-      title: selectedIdea.title,
-      bullets: [
-        `Risk appetite is alive with ${strongStock.symbol} and ${strongCrypto.symbol} both showing positive momentum.`,
-        'That usually supports builder attention, tool spend, and appetite for new workflow products.',
-        'The best monetization angle is still solving one repeated business process end-to-end.',
-      ],
-    }
+  const automationHit = allHits.find((hit) => /automation|workflow|zapier|n8n/i.test(hit.title))
+  if (automationHit) return rotatingIdeas.find((idea) => idea.theme === 'automation') || rotatingIdeas[0]
+
+  const microHit = allHits.find((hit) => /micro|shopify|saas/i.test(hit.title))
+  if (microHit) return rotatingIdeas.find((idea) => idea.theme === 'micro_saas') || rotatingIdeas[0]
+
+  const agentHit = allHits.find((hit) => /agent/i.test(hit.title))
+  if (agentHit) return rotatingIdeas.find((idea) => idea.theme === 'ai_agents') || rotatingIdeas[0]
+
+  return rotatingIdeas[now.getUTCDate() % rotatingIdeas.length]
+}
+
+function deriveTopOpportunity(selectedIdea, strongestThemeKey, stockTickers, cryptoTickers) {
+  const positiveStocks = stockTickers.filter((item) => item.change > 0)
+  const positiveCrypto = cryptoTickers.filter((item) => item.change > 0)
+
+  return {
+    title: selectedIdea.title,
+    bullets: [
+      `Research theme winner today: ${hnQueries.find((item) => item.key === strongestThemeKey)?.label || 'mixed builder demand'}.`,
+      positiveStocks.length + positiveCrypto.length >= 4
+        ? 'Risk appetite is healthy enough that builders are more likely to pay attention to new tools and workflow products.'
+        : 'Even with a mixed market tape, repeated workflow pain still creates better opportunities than trend-chasing.',
+      'The best monetization angle remains owning one repeated operational problem from intake to follow-up to reporting.',
+    ],
   }
-
-  return topOpportunities[now.getUTCDate() % topOpportunities.length]
 }
 
 async function getStockTicker(symbol) {
@@ -249,8 +290,14 @@ async function getStockTicker(symbol) {
 }
 
 async function main() {
-  const [hnAi, btcEthSolLink, nvda, msft, amd, smci] = await Promise.all([
-    fetchJson('https://hn.algolia.com/api/v1/search?query=AI&tags=story&hitsPerPage=8'),
+  const hnResponses = await Promise.all(
+    hnQueries.map(async (item) => ({
+      key: item.key,
+      data: await fetchJson(`https://hn.algolia.com/api/v1/search?query=${encodeURIComponent(item.query)}&tags=story&hitsPerPage=8`),
+    })),
+  )
+
+  const [btcEthSolLink, nvda, msft, amd, smci] = await Promise.all([
     fetchJson('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana,chainlink&price_change_percentage=24h'),
     getStockTicker('NVDA'),
     getStockTicker('MSFT'),
@@ -258,11 +305,27 @@ async function main() {
     getStockTicker('SMCI'),
   ])
 
-  const selectedIdea = rotatingIdeas[now.getUTCDate() % rotatingIdeas.length]
-
-  const cryptoMap = new Map(
-    btcEthSolLink.map((coin) => [coin.symbol.toUpperCase(), coin]),
+  const byQuery = Object.fromEntries(
+    hnResponses.map((item) => [item.key, normalizeHits(item.key, item.data.hits)]),
   )
+
+  const dedupedMap = new Map()
+  for (const hits of Object.values(byQuery)) {
+    for (const hit of hits) {
+      const key = hit.title.toLowerCase()
+      const existing = dedupedMap.get(key)
+      if (!existing || scoreHit(hit) > scoreHit(existing)) dedupedMap.set(key, hit)
+    }
+  }
+
+  const allHits = [...dedupedMap.values()].sort((a, b) => scoreHit(b) - scoreHit(a))
+  const strongestTheme = Object.entries(byQuery)
+    .map(([key, hits]) => ({ key, total: hits.slice(0, 3).reduce((sum, hit) => sum + scoreHit(hit), 0) }))
+    .sort((a, b) => b.total - a.total)[0]?.key || 'ai'
+
+  const selectedIdea = pickIdea(allHits, strongestTheme)
+
+  const cryptoMap = new Map(btcEthSolLink.map((coin) => [coin.symbol.toUpperCase(), coin]))
 
   const cryptoTickers = ['BTC', 'ETH', 'SOL', 'LINK'].map((symbol) => {
     const coin = cryptoMap.get(symbol)
@@ -282,10 +345,11 @@ async function main() {
   })
 
   const stockTickers = [nvda, msft, amd, smci]
-  const aiSignals = summarizeAiSignals(hnAi.hits || [])
-  const sourceSignals = deriveSourceSignals(hnAi.hits || [])
-  const topOpportunity = deriveTopOpportunity(selectedIdea, stockTickers, cryptoTickers)
+  const aiSignals = buildAiSignals(allHits, byQuery)
+  const sourceSignals = deriveSourceSignals(allHits, byQuery)
+  const topOpportunity = deriveTopOpportunity(selectedIdea, strongestTheme, stockTickers, cryptoTickers)
 
+  const topHeadline = allHits[0]?.title || 'Builder attention is mixed across AI and startup themes.'
   const marketBrief = [
     {
       title: 'Stocks trend',
@@ -299,10 +363,8 @@ async function main() {
     },
     {
       title: 'AI news',
-      summary: aiSignals[0]
-        ? `${aiSignals[0].value} is leading live Hacker News attention. The bigger commercial lesson is unchanged: tools that own a workflow keep earning more trust than generic wrappers.`
-        : 'Live AI headlines were checked, but the commercial takeaway remains the same: workflow ownership beats novelty.',
-      pulse: aiSignals[0] ? 'Live builder interest' : 'Steady',
+      summary: `${topHeadline} is the strongest live cross-query signal right now. The synthesis takeaway: builders still reward products that automate real work, but trust and workflow depth matter more than hype alone.`,
+      pulse: hnQueries.find((item) => item.key === strongestTheme)?.label || 'Live builder interest',
     },
   ]
 
@@ -312,9 +374,18 @@ async function main() {
     heroStats: [
       { label: 'Ideas tracked', value: '6' },
       { label: 'Update cadence', value: 'Daily live' },
-      { label: 'Data sources', value: 'HN + markets' },
+      { label: 'Research spread', value: `${hnQueries.length} queries` },
     ],
-    ideas: [...baseIdeas, { ...selectedIdea }],
+    ideas: [...baseIdeas, {
+      title: selectedIdea.title,
+      niche: selectedIdea.niche,
+      model: selectedIdea.model,
+      whyNow: selectedIdea.whyNow,
+      monetization: selectedIdea.monetization,
+      buildAngle: selectedIdea.buildAngle,
+      signal: selectedIdea.signal,
+      source: selectedIdea.source,
+    }],
     blueprints: [
       {
         title: 'Fast validation path',
@@ -347,10 +418,10 @@ async function main() {
     aiSignals,
     sourceSignals,
     updateChecklist: [
+      'Run multiple HN queries and deduplicate results into one synthesis layer.',
       'Refresh live market data from public stock and crypto endpoints.',
-      'Pull live AI headline signals from Hacker News search.',
-      'Rotate the final passive-income idea using current operator-demand patterns.',
-      'Publish only when the site data changes and the build passes.',
+      'Map the strongest current theme to a more specific passive-income idea wedge.',
+      'Publish only when the regenerated data passes a full site build.',
     ],
     sourceChecklist,
   }
@@ -358,7 +429,7 @@ async function main() {
   const header = `export type Idea = {\n  title: string\n  niche: string\n  model: string\n  whyNow: string\n  monetization: string\n  buildAngle: string\n  signal: string\n  source: string\n}\n\nexport type Blueprint = {\n  title: string\n  outcome: string\n  stack: string\n  moat: string\n}\n\nexport type BriefCard = {\n  title: string\n  summary: string\n  pulse: string\n}\n\nexport type Ticker = {\n  symbol: string\n  price: string\n  change: number\n  note: string\n}\n\nexport type SignalCard = {\n  label: string\n  value: string\n  detail: string\n}\n\nexport type SiteData = {\n  lastUpdated: string\n  topOpportunity: {\n    title: string\n    bullets: string[]\n  }\n  heroStats: Array<{ label: string; value: string }>\n  ideas: Idea[]\n  blueprints: Blueprint[]\n  marketBrief: BriefCard[]\n  stockTickers: Ticker[]\n  cryptoTickers: Ticker[]\n  aiSignals: SignalCard[]\n  sourceSignals: SignalCard[]\n  updateChecklist: string[]\n  sourceChecklist: string[]\n}\n\nexport const siteData: SiteData = `
 
   await fs.writeFile(filePath, `${header}${JSON.stringify(siteData, null, 2)}\n`)
-  console.log('Updated live site data for', stamp)
+  console.log('Updated live site data with multi-query synthesis for', stamp)
 }
 
 main().catch((error) => {
