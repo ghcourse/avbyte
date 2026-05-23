@@ -137,6 +137,8 @@ const workflowSteps = [
   },
 ]
 
+const navItems = ['Overview', 'Requests', 'Tenants', 'Vendors', 'Messages', 'Analytics']
+
 const statusOrder: Status[] = ['New', 'Acknowledged', 'Scheduled', 'In Progress', 'Waiting on Parts', 'Completed']
 const statusTone: Record<Status, string> = {
   New: 'slate',
@@ -179,273 +181,303 @@ function App() {
       <div className="mesh mesh-three" />
       <div className="grid-fade" />
 
-      <div className="app-shell">
-        <section className="topbar premium-bar">
-          <div className="brand-lockup">
-            <div className="brand-badge">MO</div>
-            <div>
+      <div className="workspace-shell">
+        <aside className="sidebar-shell">
+          <div className="sidebar-top">
+            <div className="brand-badge sidebar-badge">MO</div>
+            <div className="sidebar-brand-copy">
               <p className="eyebrow">MaintenanceOS</p>
-              <strong>Luxury-grade operations for modern property teams</strong>
+              <strong>Ops Cloud</strong>
             </div>
           </div>
 
-          <div className="topbar-actions">
-            <span className="ghost-pill">Premium interface concept</span>
-            <a className="primary-button small" href="#dashboard">View command center</a>
-          </div>
-        </section>
-
-        <section className="hero premium-hero" id="product">
-          <div className="hero-copy">
-            <p className="section-kicker">Premium redesign</p>
-            <h1>Turn maintenance into a branded, high-trust experience.</h1>
-            <p className="hero-text">
-              MaintenanceOS gives small landlords and property managers a more elevated operating layer for repair intake,
-              vendor coordination, and resident communication — without the clutter of heavyweight property software.
-            </p>
-
-            <div className="hero-actions">
-              <a className="primary-button" href="#dashboard">Open dashboard</a>
-              <button className="secondary-button" onClick={() => setShowTenantForm((value) => !value)}>
-                {showTenantForm ? 'Hide resident intake' : 'Show resident intake'}
-              </button>
-            </div>
-
-            <div className="hero-footnote">
-              <span>Designed for boutique operators, premium rentals, and high-expectation resident experiences.</span>
-            </div>
-
-            <div className="stats-grid">
-              {stats.map((item) => (
-                <article key={item.label} className="stat-card luxe-card">
-                  <span>{item.label}</span>
-                  <strong>{item.value}</strong>
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <div className="hero-preview card-surface luxe-panel">
-            <div className="preview-header">
-              <div>
-                <p className="eyebrow">Portfolio view</p>
-                <h2>Service quality snapshot</h2>
-              </div>
-              <span className="status-pill tone-gold">White-glove mode</span>
-            </div>
-
-            <div className="executive-strip">
-              <article>
-                <span>Resident satisfaction</span>
-                <strong>96%</strong>
-              </article>
-              <article>
-                <span>Median first response</span>
-                <strong>11 min</strong>
-              </article>
-            </div>
-
-            <div className="preview-stack">
-              {requests.slice(0, 3).map((request) => (
-                <button key={request.id} className="preview-row luxe-row" onClick={() => setSelectedId(request.id)}>
-                  <div>
-                    <strong>{request.title}</strong>
-                    <p>
-                      {request.property} · {request.unit}
-                    </p>
-                  </div>
-                  <div className="preview-meta">
-                    <span className={`status-pill tone-${statusTone[request.status]}`}>{request.status}</span>
-                    <span className={`status-pill tone-${priorityTone[request.priority]}`}>{request.priority}</span>
-                  </div>
+          <div className="sidebar-group">
+            <span className="sidebar-label">Workspace</span>
+            <div className="sidebar-nav">
+              {navItems.map((item, index) => (
+                <button key={item} className={`sidebar-item ${index === 1 ? 'active' : ''}`}>
+                  <span className="sidebar-icon" />
+                  {item}
                 </button>
               ))}
             </div>
           </div>
-        </section>
 
-        <section className="value-grid premium-value-grid">
-          {workflowSteps.map((step, index) => (
-            <article key={step.title} className="value-card card-surface luxe-card">
-              <span className="step-index">0{index + 1}</span>
-              <h3>{step.title}</h3>
-              <p>{step.detail}</p>
-            </article>
-          ))}
-        </section>
+          <div className="sidebar-card">
+            <span className="sidebar-label">Portfolio</span>
+            <strong>12 buildings</strong>
+            <p>Centralized maintenance workflows across premium residential units.</p>
+          </div>
+        </aside>
 
-        <section className="workspace-grid" id="dashboard">
-          <div className="card-surface queue-panel luxe-panel">
-            <div className="panel-header">
-              <div>
-                <p className="eyebrow">Queue</p>
-                <h2>Operations board</h2>
-              </div>
-              <div className="filter-row">
-                <button
-                  className={`filter-chip ${statusFilter === 'All' ? 'active' : ''}`}
-                  onClick={() => setStatusFilter('All')}
-                >
-                  All
+        <main className="app-shell">
+          <section className="topbar premium-bar">
+            <div>
+              <p className="eyebrow">Maintenance command center</p>
+              <h1 className="page-title">Request operations</h1>
+            </div>
+
+            <div className="topbar-actions">
+              <div className="search-shell">Search requests, residents, or vendors</div>
+              <span className="ghost-pill">Live workspace</span>
+              <a className="primary-button small" href="#dashboard">Open queue</a>
+            </div>
+          </section>
+
+          <section className="hero premium-hero" id="product">
+            <div className="hero-copy">
+              <p className="section-kicker">Enterprise-inspired premium redesign</p>
+              <h2>Turn maintenance into a branded, high-trust experience.</h2>
+              <p className="hero-text">
+                MaintenanceOS gives small landlords and property managers a more elevated operating layer for repair
+                intake, vendor coordination, and resident communication — without the clutter of heavyweight property
+                software.
+              </p>
+
+              <div className="hero-actions">
+                <a className="primary-button" href="#dashboard">Open dashboard</a>
+                <button className="secondary-button" onClick={() => setShowTenantForm((value) => !value)}>
+                  {showTenantForm ? 'Hide resident intake' : 'Show resident intake'}
                 </button>
-                {statusOrder.map((status) => (
-                  <button
-                    key={status}
-                    className={`filter-chip ${statusFilter === status ? 'active' : ''}`}
-                    onClick={() => setStatusFilter(status)}
-                  >
-                    {status}
-                  </button>
+              </div>
+
+              <div className="hero-footnote">
+                <span>Designed for boutique operators, premium rentals, and high-expectation resident experiences.</span>
+              </div>
+
+              <div className="stats-grid">
+                {stats.map((item) => (
+                  <article key={item.label} className="stat-card luxe-card">
+                    <span>{item.label}</span>
+                    <strong>{item.value}</strong>
+                  </article>
                 ))}
               </div>
             </div>
 
-            <div className="request-list">
-              {filteredRequests.map((request) => (
-                <button
-                  key={request.id}
-                  className={`request-card luxe-row ${selectedId === request.id ? 'selected' : ''}`}
-                  onClick={() => setSelectedId(request.id)}
-                >
-                  <div className="request-card-top">
-                    <div>
-                      <span className="request-id">{request.id}</span>
-                      <h3>{request.title}</h3>
-                    </div>
-                    <span className={`status-pill tone-${priorityTone[request.priority]}`}>{request.priority}</span>
-                  </div>
-
-                  <div className="request-card-meta">
-                    <span>
-                      {request.property} · {request.unit}
-                    </span>
-                    <span>{request.tenant}</span>
-                    <span>{request.accessWindow}</span>
-                  </div>
-
-                  <div className="request-card-bottom">
-                    <span className={`status-pill tone-${statusTone[request.status]}`}>{request.status}</span>
-                    <p>{request.lastUpdate}</p>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="detail-column">
-            <section className="card-surface detail-panel luxe-panel">
-              <div className="panel-header">
+            <div className="hero-preview card-surface luxe-panel light-panel">
+              <div className="preview-header">
                 <div>
-                  <p className="eyebrow">Case detail</p>
-                  <h2>{selectedRequest.title}</h2>
+                  <p className="eyebrow">Portfolio view</p>
+                  <h3>Service quality snapshot</h3>
                 </div>
-                <span className={`status-pill tone-${statusTone[selectedRequest.status]}`}>{selectedRequest.status}</span>
+                <span className="status-pill tone-gold">White-glove mode</span>
               </div>
 
-              <div className="detail-grid">
+              <div className="executive-strip">
                 <article>
-                  <span>Property</span>
-                  <strong>
-                    {selectedRequest.property} · {selectedRequest.unit}
-                  </strong>
+                  <span>Resident satisfaction</span>
+                  <strong>96%</strong>
                 </article>
                 <article>
-                  <span>Resident</span>
-                  <strong>{selectedRequest.tenant}</strong>
-                </article>
-                <article>
-                  <span>Assigned vendor</span>
-                  <strong>{selectedRequest.vendor}</strong>
-                </article>
-                <article>
-                  <span>Approved estimate</span>
-                  <strong>{selectedRequest.estimate}</strong>
+                  <span>Median first response</span>
+                  <strong>11 min</strong>
                 </article>
               </div>
 
-              <p className="detail-description">{selectedRequest.description}</p>
+              <div className="preview-stack compact-stack">
+                {requests.slice(0, 3).map((request) => (
+                  <button key={request.id} className="preview-row luxe-row light-row" onClick={() => setSelectedId(request.id)}>
+                    <div>
+                      <strong>{request.title}</strong>
+                      <p>
+                        {request.property} · {request.unit}
+                      </p>
+                    </div>
+                    <div className="preview-meta">
+                      <span className={`status-pill tone-${statusTone[request.status]}`}>{request.status}</span>
+                      <span className={`status-pill tone-${priorityTone[request.priority]}`}>{request.priority}</span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </section>
 
-              <div className="timeline-block luxe-inset">
-                <div className="timeline-header">
-                  <h3>Resident-visible timeline</h3>
-                  <span>{selectedRequest.submittedAt}</span>
+          <section className="value-grid premium-value-grid">
+            {workflowSteps.map((step, index) => (
+              <article key={step.title} className="value-card card-surface luxe-card light-panel">
+                <span className="step-index">0{index + 1}</span>
+                <h3>{step.title}</h3>
+                <p>{step.detail}</p>
+              </article>
+            ))}
+          </section>
+
+          <section className="workspace-grid" id="dashboard">
+            <div className="card-surface queue-panel luxe-panel light-panel">
+              <div className="panel-header panel-header-stacked">
+                <div>
+                  <p className="eyebrow">Queue</p>
+                  <h3>Operations board</h3>
                 </div>
-
-                <div className="timeline-list">
-                  {selectedRequest.timeline.map((event) => (
-                    <article key={`${event.label}-${event.time}`} className="timeline-item">
-                      <div className="timeline-dot" />
-                      <div>
-                        <strong>{event.label}</strong>
-                        <p>{event.note}</p>
-                      </div>
-                      <time>{event.time}</time>
-                    </article>
+                <div className="filter-row">
+                  <button
+                    className={`filter-chip ${statusFilter === 'All' ? 'active' : ''}`}
+                    onClick={() => setStatusFilter('All')}
+                  >
+                    All
+                  </button>
+                  {statusOrder.map((status) => (
+                    <button
+                      key={status}
+                      className={`filter-chip ${statusFilter === status ? 'active' : ''}`}
+                      onClick={() => setStatusFilter(status)}
+                    >
+                      {status}
+                    </button>
                   ))}
                 </div>
               </div>
-            </section>
 
-            <section className="lower-grid">
-              <div className="card-surface vendor-panel luxe-panel">
-                <div className="panel-header compact">
+              <div className="data-table-shell">
+                <div className="table-head request-table-row">
+                  <span>Request</span>
+                  <span>Property</span>
+                  <span>Resident</span>
+                  <span>Status</span>
+                  <span>Priority</span>
+                </div>
+
+                <div className="request-list table-list">
+                  {filteredRequests.map((request) => (
+                    <button
+                      key={request.id}
+                      className={`request-card request-table-row luxe-row light-row ${selectedId === request.id ? 'selected' : ''}`}
+                      onClick={() => setSelectedId(request.id)}
+                    >
+                      <div className="table-primary">
+                        <span className="request-id">{request.id}</span>
+                        <strong>{request.title}</strong>
+                        <p>{request.lastUpdate}</p>
+                      </div>
+                      <span>
+                        {request.property} · {request.unit}
+                      </span>
+                      <span>{request.tenant}</span>
+                      <span className={`status-pill tone-${statusTone[request.status]}`}>{request.status}</span>
+                      <span className={`status-pill tone-${priorityTone[request.priority]}`}>{request.priority}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="detail-column">
+              <section className="card-surface detail-panel luxe-panel light-panel">
+                <div className="panel-header">
                   <div>
-                    <p className="eyebrow">Vendor desk</p>
-                    <h3>Preferred partners</h3>
+                    <p className="eyebrow">Case detail</p>
+                    <h3>{selectedRequest.title}</h3>
+                  </div>
+                  <span className={`status-pill tone-${statusTone[selectedRequest.status]}`}>{selectedRequest.status}</span>
+                </div>
+
+                <div className="detail-grid">
+                  <article>
+                    <span>Property</span>
+                    <strong>
+                      {selectedRequest.property} · {selectedRequest.unit}
+                    </strong>
+                  </article>
+                  <article>
+                    <span>Resident</span>
+                    <strong>{selectedRequest.tenant}</strong>
+                  </article>
+                  <article>
+                    <span>Assigned vendor</span>
+                    <strong>{selectedRequest.vendor}</strong>
+                  </article>
+                  <article>
+                    <span>Approved estimate</span>
+                    <strong>{selectedRequest.estimate}</strong>
+                  </article>
+                </div>
+
+                <p className="detail-description">{selectedRequest.description}</p>
+
+                <div className="timeline-block luxe-inset">
+                  <div className="timeline-header">
+                    <h3>Resident-visible timeline</h3>
+                    <span>{selectedRequest.submittedAt}</span>
+                  </div>
+
+                  <div className="timeline-list">
+                    {selectedRequest.timeline.map((event) => (
+                      <article key={`${event.label}-${event.time}`} className="timeline-item">
+                        <div className="timeline-dot" />
+                        <div>
+                          <strong>{event.label}</strong>
+                          <p>{event.note}</p>
+                        </div>
+                        <time>{event.time}</time>
+                      </article>
+                    ))}
                   </div>
                 </div>
+              </section>
 
-                <div className="vendor-list">
-                  {vendors.map((vendor) => (
-                    <article key={vendor.name} className="vendor-card luxe-inset">
-                      <div>
-                        <strong>{vendor.name}</strong>
-                        <p>{vendor.specialty}</p>
-                      </div>
-                      <div className="vendor-meta">
-                        <span>{vendor.eta}</span>
-                        <span>{vendor.load}</span>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              </div>
-
-              {showTenantForm ? (
-                <div className="card-surface intake-panel luxe-panel">
+              <section className="lower-grid">
+                <div className="card-surface vendor-panel luxe-panel light-panel">
                   <div className="panel-header compact">
                     <div>
-                      <p className="eyebrow">Resident experience</p>
-                      <h3>Elegant intake flow</h3>
+                      <p className="eyebrow">Vendor desk</p>
+                      <h3>Preferred partners</h3>
                     </div>
                   </div>
 
-                  <div className="intake-form">
-                    <label>
-                      Issue title
-                      <input value="Kitchen sink leak under cabinet" readOnly />
-                    </label>
-                    <label>
-                      Describe the issue
-                      <textarea value="Water dripping under sink. Cabinet floor is wet and getting worse." readOnly />
-                    </label>
-                    <div className="inline-fields">
-                      <label>
-                        Unit
-                        <input value="2B" readOnly />
-                      </label>
-                      <label>
-                        Access
-                        <input value="Tomorrow 1pm–4pm" readOnly />
-                      </label>
-                    </div>
-                    <button className="primary-button full">Submit request</button>
+                  <div className="vendor-list">
+                    {vendors.map((vendor) => (
+                      <article key={vendor.name} className="vendor-card luxe-inset">
+                        <div>
+                          <strong>{vendor.name}</strong>
+                          <p>{vendor.specialty}</p>
+                        </div>
+                        <div className="vendor-meta">
+                          <span>{vendor.eta}</span>
+                          <span>{vendor.load}</span>
+                        </div>
+                      </article>
+                    ))}
                   </div>
                 </div>
-              ) : null}
-            </section>
-          </div>
-        </section>
+
+                {showTenantForm ? (
+                  <div className="card-surface intake-panel luxe-panel light-panel">
+                    <div className="panel-header compact">
+                      <div>
+                        <p className="eyebrow">Resident experience</p>
+                        <h3>Elegant intake flow</h3>
+                      </div>
+                    </div>
+
+                    <div className="intake-form">
+                      <label>
+                        Issue title
+                        <input value="Kitchen sink leak under cabinet" readOnly />
+                      </label>
+                      <label>
+                        Describe the issue
+                        <textarea value="Water dripping under sink. Cabinet floor is wet and getting worse." readOnly />
+                      </label>
+                      <div className="inline-fields">
+                        <label>
+                          Unit
+                          <input value="2B" readOnly />
+                        </label>
+                        <label>
+                          Access
+                          <input value="Tomorrow 1pm–4pm" readOnly />
+                        </label>
+                      </div>
+                      <button className="primary-button full">Submit request</button>
+                    </div>
+                  </div>
+                ) : null}
+              </section>
+            </div>
+          </section>
+        </main>
       </div>
     </div>
   )
