@@ -32,7 +32,7 @@ const requests: RequestItem[] = [
     category: 'Plumbing',
     priority: 'High',
     status: 'Scheduled',
-    submittedAt: 'Today · 08:14',
+    submittedAt: '10/31/2024',
     accessWindow: 'Tomorrow · 1pm–4pm',
     description:
       'Tenant reported active dripping under the sink with cabinet floor getting wet. Uploaded two photos and noted mild odor.',
@@ -55,7 +55,7 @@ const requests: RequestItem[] = [
     category: 'HVAC',
     priority: 'Urgent',
     status: 'In Progress',
-    submittedAt: 'Today · 06:48',
+    submittedAt: '9/6/2024',
     accessWindow: 'Any time with notice',
     description:
       'AC is blowing warm air. Tenant says this started overnight and room temperature is rising quickly.',
@@ -78,7 +78,7 @@ const requests: RequestItem[] = [
     category: 'Electrical',
     priority: 'Medium',
     status: 'Waiting on Parts',
-    submittedAt: 'Yesterday · 16:40',
+    submittedAt: '4/4/2024',
     accessWindow: 'N/A',
     description:
       'Common hallway fixture is flickering repeatedly. Electrician says ballast replacement is needed.',
@@ -101,7 +101,7 @@ const requests: RequestItem[] = [
     category: 'General repair',
     priority: 'Low',
     status: 'Completed',
-    submittedAt: 'Yesterday · 09:12',
+    submittedAt: '3/12/2024',
     accessWindow: 'Weekdays after 10am',
     description:
       'Minor drywall patch needed after previous leak repair. Tenant requested finishing date for cleanup.',
@@ -137,13 +137,24 @@ const workflowSteps = [
   },
 ]
 
+const railItems = ['home', 'plus', 'clock', 'list', 'chart', 'mail', 'gear']
+
 const navItems = [
-  { label: 'Overview', active: false },
-  { label: 'Requests', active: true },
-  { label: 'Leases', active: false },
-  { label: 'Vendors', active: false },
-  { label: 'Messages', active: false },
-  { label: 'Reports', active: false },
+  { section: 'Applications', items: [{ label: 'Maintenance Requests', active: true }] },
+  {
+    section: 'All Leases',
+    items: [
+      { label: 'Active Leases', active: false },
+      { label: 'Inactive Leases', active: false },
+    ],
+  },
+  {
+    section: 'In Process',
+    items: [
+      { label: 'Draft Leases', active: false },
+      { label: 'Renewals', active: false },
+    ],
+  },
 ]
 
 const statusOrder: Status[] = ['New', 'Acknowledged', 'Scheduled', 'In Progress', 'Waiting on Parts', 'Completed']
@@ -189,31 +200,41 @@ function App() {
       <div className="grid-fade" />
 
       <div className="workspace-shell">
+        <aside className="icon-rail">
+          <div className="icon-rail-top">
+            <div className="rail-logo">M</div>
+            {railItems.map((item, index) => (
+              <button key={item} className={`rail-icon ${index === 3 ? 'active' : ''}`} aria-label={item}>
+                <span />
+              </button>
+            ))}
+          </div>
+          <button className="rail-icon bottom" aria-label="profile">
+            <span />
+          </button>
+        </aside>
+
         <aside className="sidebar-shell">
           <div className="sidebar-top">
-            <div className="brand-badge sidebar-badge">MO</div>
+            <button className="sidebar-back">‹</button>
             <div className="sidebar-brand-copy">
-              <p className="eyebrow">MaintenanceOS</p>
-              <strong>Ops Cloud</strong>
+              <strong>Leasing</strong>
             </div>
           </div>
 
-          <div className="sidebar-group">
-            <span className="sidebar-label">Workspace</span>
-            <div className="sidebar-nav">
-              {navItems.map((item) => (
-                <button key={item.label} className={`sidebar-item ${item.active ? 'active' : ''}`}>
-                  <span className="sidebar-icon" />
-                  {item.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="sidebar-card">
-            <span className="sidebar-label">Portfolio</span>
-            <strong>12 buildings</strong>
-            <p>Centralized maintenance workflows across premium residential units.</p>
+          <div className="sidebar-group-list">
+            {navItems.map((group) => (
+              <div key={group.section} className="sidebar-group">
+                <span className="sidebar-label">{group.section}</span>
+                <div className="sidebar-nav">
+                  {group.items.map((item) => (
+                    <button key={item.label} className={`sidebar-item ${item.active ? 'active' : ''}`}>
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </aside>
 
@@ -225,9 +246,9 @@ function App() {
             </div>
 
             <div className="topbar-actions">
-              <div className="search-shell">Search requests, residents, or vendors</div>
-              <span className="ghost-pill">Live workspace</span>
-              <a className="primary-button small" href="#dashboard">Open queue</a>
+              <div className="search-shell">Search anything</div>
+              <button className="utility-button">Share View</button>
+              <div className="user-avatar">TC</div>
             </div>
           </section>
 
@@ -312,8 +333,8 @@ function App() {
           </section>
 
           <section className="workspace-grid" id="dashboard">
-            <div className="card-surface queue-panel luxe-panel light-panel">
-              <div className="panel-header panel-header-stacked">
+            <div className="card-surface queue-panel luxe-panel light-panel main-table-panel">
+              <div className="panel-header panel-header-stacked table-toolbar">
                 <div>
                   <p className="eyebrow">Queue</p>
                   <h3>Operations board</h3>
@@ -341,7 +362,7 @@ function App() {
                 <div className="table-head request-table-row">
                   <span>Request</span>
                   <span>Property</span>
-                  <span>Created</span>
+                  <span>Created At</span>
                   <span>Status</span>
                   <span>Next</span>
                 </div>
@@ -353,13 +374,17 @@ function App() {
                       className={`request-card request-table-row luxe-row light-row ${selectedId === request.id ? 'selected' : ''}`}
                       onClick={() => setSelectedId(request.id)}
                     >
-                      <div className="table-primary">
-                        <span className="request-id">{request.id}</span>
-                        <strong>{request.title}</strong>
-                        <p>{request.lastUpdate}</p>
+                      <div className="table-primary applicant-cell">
+                        <div className="avatar-circle">{request.tenant.slice(0, 2).toUpperCase()}</div>
+                        <div>
+                          <span className="request-id">{request.id}</span>
+                          <strong>{request.title}</strong>
+                          <p>{request.tenant}</p>
+                        </div>
                       </div>
                       <span>
-                        {request.property} · {request.unit}
+                        {request.property}
+                        <small>{request.unit}</small>
                       </span>
                       <span>{request.submittedAt}</span>
                       <span className={`status-pill tone-${statusTone[request.status]}`}>{request.status}</span>
