@@ -124,16 +124,16 @@ const vendors = [
 
 const workflowSteps = [
   {
-    title: 'Capture the request once',
-    detail: 'Tenants submit issues with photos, access notes, and urgency so your team starts with context instead of chasing details.',
+    title: 'Operational clarity',
+    detail: 'Capture every issue with the right context so managers stop wasting time on follow-up messages and scattered notes.',
   },
   {
-    title: 'Assign and update fast',
-    detail: 'Managers route the job, set expectations, and coordinate vendors without scattered text threads.',
+    title: 'White-glove coordination',
+    detail: 'Route vendors, schedule visits, and publish clean status updates that feel deliberate instead of reactive.',
   },
   {
-    title: 'Keep everyone aligned',
-    detail: 'A shared timeline gives tenants, staff, and vendors one clear source of truth from intake to completion.',
+    title: 'Tenant confidence',
+    detail: 'Give residents a premium experience with clear timelines, faster acknowledgements, and visible progress.',
   },
 ]
 
@@ -174,45 +174,50 @@ function App() {
 
   return (
     <div className="page-shell">
-      <div className="glow glow-one" />
-      <div className="glow glow-two" />
-      <div className="glow glow-three" />
+      <div className="mesh mesh-one" />
+      <div className="mesh mesh-two" />
+      <div className="mesh mesh-three" />
+      <div className="grid-fade" />
 
       <div className="app-shell">
-        <section className="topbar">
+        <section className="topbar premium-bar">
           <div className="brand-lockup">
             <div className="brand-badge">MO</div>
             <div>
               <p className="eyebrow">MaintenanceOS</p>
-              <strong>Maintenance operations for small landlords</strong>
+              <strong>Luxury-grade operations for modern property teams</strong>
             </div>
           </div>
 
           <div className="topbar-actions">
-            <span className="ghost-pill">Focused product wedge</span>
-            <a className="primary-button small" href="#product">Explore product</a>
+            <span className="ghost-pill">Premium interface concept</span>
+            <a className="primary-button small" href="#dashboard">View command center</a>
           </div>
         </section>
 
-        <section className="hero" id="product">
+        <section className="hero premium-hero" id="product">
           <div className="hero-copy">
-            <p className="section-kicker">Rebuilt interface concept</p>
-            <h1>Keep every repair request, vendor handoff, and tenant update in one calm workflow.</h1>
+            <p className="section-kicker">Premium redesign</p>
+            <h1>Turn maintenance into a branded, high-trust experience.</h1>
             <p className="hero-text">
-              MaintenanceOS is a cleaner operating layer for small landlords and property managers who are tired of
-              juggling texts, spreadsheets, and bloated all-in-one software.
+              MaintenanceOS gives small landlords and property managers a more elevated operating layer for repair intake,
+              vendor coordination, and resident communication — without the clutter of heavyweight property software.
             </p>
 
             <div className="hero-actions">
-              <a className="primary-button" href="#dashboard">View dashboard</a>
+              <a className="primary-button" href="#dashboard">Open dashboard</a>
               <button className="secondary-button" onClick={() => setShowTenantForm((value) => !value)}>
-                {showTenantForm ? 'Hide intake panel' : 'Show intake panel'}
+                {showTenantForm ? 'Hide resident intake' : 'Show resident intake'}
               </button>
+            </div>
+
+            <div className="hero-footnote">
+              <span>Designed for boutique operators, premium rentals, and high-expectation resident experiences.</span>
             </div>
 
             <div className="stats-grid">
               {stats.map((item) => (
-                <article key={item.label} className="stat-card">
+                <article key={item.label} className="stat-card luxe-card">
                   <span>{item.label}</span>
                   <strong>{item.value}</strong>
                 </article>
@@ -220,18 +225,29 @@ function App() {
             </div>
           </div>
 
-          <div className="hero-preview card-surface">
+          <div className="hero-preview card-surface luxe-panel">
             <div className="preview-header">
               <div>
-                <p className="eyebrow">Live operations snapshot</p>
-                <h2>Today’s queue</h2>
+                <p className="eyebrow">Portfolio view</p>
+                <h2>Service quality snapshot</h2>
               </div>
-              <span className="status-pill tone-green">4 updates sent</span>
+              <span className="status-pill tone-gold">White-glove mode</span>
+            </div>
+
+            <div className="executive-strip">
+              <article>
+                <span>Resident satisfaction</span>
+                <strong>96%</strong>
+              </article>
+              <article>
+                <span>Median first response</span>
+                <strong>11 min</strong>
+              </article>
             </div>
 
             <div className="preview-stack">
               {requests.slice(0, 3).map((request) => (
-                <button key={request.id} className="preview-row" onClick={() => setSelectedId(request.id)}>
+                <button key={request.id} className="preview-row luxe-row" onClick={() => setSelectedId(request.id)}>
                   <div>
                     <strong>{request.title}</strong>
                     <p>
@@ -248,9 +264,9 @@ function App() {
           </div>
         </section>
 
-        <section className="value-grid">
+        <section className="value-grid premium-value-grid">
           {workflowSteps.map((step, index) => (
-            <article key={step.title} className="value-card card-surface">
+            <article key={step.title} className="value-card card-surface luxe-card">
               <span className="step-index">0{index + 1}</span>
               <h3>{step.title}</h3>
               <p>{step.detail}</p>
@@ -259,11 +275,11 @@ function App() {
         </section>
 
         <section className="workspace-grid" id="dashboard">
-          <div className="card-surface queue-panel">
+          <div className="card-surface queue-panel luxe-panel">
             <div className="panel-header">
               <div>
                 <p className="eyebrow">Queue</p>
-                <h2>Request board</h2>
+                <h2>Operations board</h2>
               </div>
               <div className="filter-row">
                 <button
@@ -288,7 +304,7 @@ function App() {
               {filteredRequests.map((request) => (
                 <button
                   key={request.id}
-                  className={`request-card ${selectedId === request.id ? 'selected' : ''}`}
+                  className={`request-card luxe-row ${selectedId === request.id ? 'selected' : ''}`}
                   onClick={() => setSelectedId(request.id)}
                 >
                   <div className="request-card-top">
@@ -317,10 +333,10 @@ function App() {
           </div>
 
           <div className="detail-column">
-            <section className="card-surface detail-panel">
+            <section className="card-surface detail-panel luxe-panel">
               <div className="panel-header">
                 <div>
-                  <p className="eyebrow">Selected request</p>
+                  <p className="eyebrow">Case detail</p>
                   <h2>{selectedRequest.title}</h2>
                 </div>
                 <span className={`status-pill tone-${statusTone[selectedRequest.status]}`}>{selectedRequest.status}</span>
@@ -334,7 +350,7 @@ function App() {
                   </strong>
                 </article>
                 <article>
-                  <span>Tenant</span>
+                  <span>Resident</span>
                   <strong>{selectedRequest.tenant}</strong>
                 </article>
                 <article>
@@ -342,16 +358,16 @@ function App() {
                   <strong>{selectedRequest.vendor}</strong>
                 </article>
                 <article>
-                  <span>Estimate</span>
+                  <span>Approved estimate</span>
                   <strong>{selectedRequest.estimate}</strong>
                 </article>
               </div>
 
               <p className="detail-description">{selectedRequest.description}</p>
 
-              <div className="timeline-block">
+              <div className="timeline-block luxe-inset">
                 <div className="timeline-header">
-                  <h3>Shared timeline</h3>
+                  <h3>Resident-visible timeline</h3>
                   <span>{selectedRequest.submittedAt}</span>
                 </div>
 
@@ -371,17 +387,17 @@ function App() {
             </section>
 
             <section className="lower-grid">
-              <div className="card-surface vendor-panel">
+              <div className="card-surface vendor-panel luxe-panel">
                 <div className="panel-header compact">
                   <div>
-                    <p className="eyebrow">Vendor coordination</p>
-                    <h3>Active partners</h3>
+                    <p className="eyebrow">Vendor desk</p>
+                    <h3>Preferred partners</h3>
                   </div>
                 </div>
 
                 <div className="vendor-list">
                   {vendors.map((vendor) => (
-                    <article key={vendor.name} className="vendor-card">
+                    <article key={vendor.name} className="vendor-card luxe-inset">
                       <div>
                         <strong>{vendor.name}</strong>
                         <p>{vendor.specialty}</p>
@@ -396,11 +412,11 @@ function App() {
               </div>
 
               {showTenantForm ? (
-                <div className="card-surface intake-panel">
+                <div className="card-surface intake-panel luxe-panel">
                   <div className="panel-header compact">
                     <div>
-                      <p className="eyebrow">Tenant view</p>
-                      <h3>Simple intake form</h3>
+                      <p className="eyebrow">Resident experience</p>
+                      <h3>Elegant intake flow</h3>
                     </div>
                   </div>
 
