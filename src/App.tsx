@@ -122,6 +122,21 @@ const vendors = [
   { name: 'BrightWire Electric', specialty: 'Electrical', eta: 'Awaiting part', load: '1 blocked job' },
 ]
 
+const workflowSteps = [
+  {
+    title: 'Capture the request once',
+    detail: 'Tenants submit issues with photos, access notes, and urgency so your team starts with context instead of chasing details.',
+  },
+  {
+    title: 'Assign and update fast',
+    detail: 'Managers route the job, set expectations, and coordinate vendors without scattered text threads.',
+  },
+  {
+    title: 'Keep everyone aligned',
+    detail: 'A shared timeline gives tenants, staff, and vendors one clear source of truth from intake to completion.',
+  },
+]
+
 const statusOrder: Status[] = ['New', 'Acknowledged', 'Scheduled', 'In Progress', 'Waiting on Parts', 'Completed']
 const statusTone: Record<Status, string> = {
   New: 'slate',
@@ -141,7 +156,7 @@ const priorityTone: Record<Priority, string> = {
 function App() {
   const [selectedId, setSelectedId] = useState(requests[0].id)
   const [statusFilter, setStatusFilter] = useState<'All' | Status>('All')
-  const [showTenantForm, setShowTenantForm] = useState(false)
+  const [showTenantForm, setShowTenantForm] = useState(true)
 
   const selectedRequest = requests.find((item) => item.id === selectedId) ?? requests[0]
 
@@ -158,255 +173,264 @@ function App() {
   ]
 
   return (
-    <div className="app-shell">
-      <div className="ambient ambient-one" />
-      <div className="ambient ambient-two" />
-      <div className="ambient ambient-three" />
+    <div className="page-shell">
+      <div className="glow glow-one" />
+      <div className="glow glow-two" />
+      <div className="glow glow-three" />
 
-      <section className="hero-panel">
-        <div className="hero-nav">
-          <div className="brand-wrap">
+      <div className="app-shell">
+        <section className="topbar">
+          <div className="brand-lockup">
             <div className="brand-badge">MO</div>
             <div>
-              <p className="mini-kicker">MaintenanceOS · MVP app shell</p>
-              <h1>Run landlord maintenance without losing the thread.</h1>
+              <p className="eyebrow">MaintenanceOS</p>
+              <strong>Maintenance operations for small landlords</strong>
             </div>
           </div>
 
-          <div className="hero-status">
-            <span className="status-pill">Small landlord workflow</span>
-            <button className="status-pill action-pill" onClick={() => setShowTenantForm((value) => !value)}>
-              {showTenantForm ? 'Hide tenant form' : 'Open tenant form'}
-            </button>
+          <div className="topbar-actions">
+            <span className="ghost-pill">Focused product wedge</span>
+            <a className="primary-button small" href="#product">Explore product</a>
           </div>
-        </div>
+        </section>
 
-        <div className="hero-grid app-hero-grid">
+        <section className="hero" id="product">
           <div className="hero-copy">
-            <p className="section-kicker">What this app covers</p>
+            <p className="section-kicker">Rebuilt interface concept</p>
+            <h1>Keep every repair request, vendor handoff, and tenant update in one calm workflow.</h1>
             <p className="hero-text">
-              A working MVP shell for the core wedge: request intake, status tracking, vendor
-              coordination, and tenant visibility. This is the product direction we can now wire to
-              real auth, database records, uploads, and notifications.
+              MaintenanceOS is a cleaner operating layer for small landlords and property managers who are tired of
+              juggling texts, spreadsheets, and bloated all-in-one software.
             </p>
 
-            <div className="signal-strip stat-strip">
+            <div className="hero-actions">
+              <a className="primary-button" href="#dashboard">View dashboard</a>
+              <button className="secondary-button" onClick={() => setShowTenantForm((value) => !value)}>
+                {showTenantForm ? 'Hide intake panel' : 'Show intake panel'}
+              </button>
+            </div>
+
+            <div className="stats-grid">
               {stats.map((item) => (
-                <article key={item.label} className="signal-card stat-card">
+                <article key={item.label} className="stat-card">
                   <span>{item.label}</span>
                   <strong>{item.value}</strong>
-                  <p>Focused on one workflow that landlords already feel every day.</p>
                 </article>
               ))}
             </div>
           </div>
 
-          <aside className="hero-highlight product-note">
-            <p className="section-kicker">MVP scope</p>
-            <div className="focus-ring">
+          <div className="hero-preview card-surface">
+            <div className="preview-header">
               <div>
-                <span>Build sequence</span>
-                <strong>Dashboard → request detail → tenant intake → vendor ops</strong>
+                <p className="eyebrow">Live operations snapshot</p>
+                <h2>Today’s queue</h2>
+              </div>
+              <span className="status-pill tone-green">4 updates sent</span>
+            </div>
+
+            <div className="preview-stack">
+              {requests.slice(0, 3).map((request) => (
+                <button key={request.id} className="preview-row" onClick={() => setSelectedId(request.id)}>
+                  <div>
+                    <strong>{request.title}</strong>
+                    <p>
+                      {request.property} · {request.unit}
+                    </p>
+                  </div>
+                  <div className="preview-meta">
+                    <span className={`status-pill tone-${statusTone[request.status]}`}>{request.status}</span>
+                    <span className={`status-pill tone-${priorityTone[request.priority]}`}>{request.priority}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="value-grid">
+          {workflowSteps.map((step, index) => (
+            <article key={step.title} className="value-card card-surface">
+              <span className="step-index">0{index + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.detail}</p>
+            </article>
+          ))}
+        </section>
+
+        <section className="workspace-grid" id="dashboard">
+          <div className="card-surface queue-panel">
+            <div className="panel-header">
+              <div>
+                <p className="eyebrow">Queue</p>
+                <h2>Request board</h2>
+              </div>
+              <div className="filter-row">
+                <button
+                  className={`filter-chip ${statusFilter === 'All' ? 'active' : ''}`}
+                  onClick={() => setStatusFilter('All')}
+                >
+                  All
+                </button>
+                {statusOrder.map((status) => (
+                  <button
+                    key={status}
+                    className={`filter-chip ${statusFilter === status ? 'active' : ''}`}
+                    onClick={() => setStatusFilter(status)}
+                  >
+                    {status}
+                  </button>
+                ))}
               </div>
             </div>
-            <ul className="focus-list">
-              <li>Keep the first version tightly focused on maintenance communication.</li>
-              <li>Use role-based views later instead of cramming everything into one screen.</li>
-              <li>The strongest differentiator is a clear timeline visible to everyone involved.</li>
-            </ul>
-          </aside>
-        </div>
-      </section>
 
-      <section className="workspace-grid">
-        <section className="panel board-panel">
-          <div className="panel-head">
-            <div>
-              <p className="section-kicker">Dashboard</p>
-              <h2>Request board</h2>
-            </div>
-            <div className="filter-row">
-              {(['All', ...statusOrder] as const).map((status) => (
+            <div className="request-list">
+              {filteredRequests.map((request) => (
                 <button
-                  key={status}
-                  className={`filter-chip ${statusFilter === status ? 'active' : ''}`}
-                  onClick={() => setStatusFilter(status)}
+                  key={request.id}
+                  className={`request-card ${selectedId === request.id ? 'selected' : ''}`}
+                  onClick={() => setSelectedId(request.id)}
                 >
-                  {status}
+                  <div className="request-card-top">
+                    <div>
+                      <span className="request-id">{request.id}</span>
+                      <h3>{request.title}</h3>
+                    </div>
+                    <span className={`status-pill tone-${priorityTone[request.priority]}`}>{request.priority}</span>
+                  </div>
+
+                  <div className="request-card-meta">
+                    <span>
+                      {request.property} · {request.unit}
+                    </span>
+                    <span>{request.tenant}</span>
+                    <span>{request.accessWindow}</span>
+                  </div>
+
+                  <div className="request-card-bottom">
+                    <span className={`status-pill tone-${statusTone[request.status]}`}>{request.status}</span>
+                    <p>{request.lastUpdate}</p>
+                  </div>
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="request-list">
-            {filteredRequests.map((item) => (
-              <button
-                key={item.id}
-                className={`request-card ${selectedId === item.id ? 'selected' : ''}`}
-                onClick={() => setSelectedId(item.id)}
-              >
-                <div className="request-topline">
-                  <div>
-                    <p className="request-id">{item.id}</p>
-                    <h3>{item.title}</h3>
-                  </div>
-                  <span className={`tone-pill ${statusTone[item.status]}`}>{item.status}</span>
+          <div className="detail-column">
+            <section className="card-surface detail-panel">
+              <div className="panel-header">
+                <div>
+                  <p className="eyebrow">Selected request</p>
+                  <h2>{selectedRequest.title}</h2>
                 </div>
-
-                <div className="request-meta-grid">
-                  <div>
-                    <span>Property</span>
-                    <strong>
-                      {item.property} · {item.unit}
-                    </strong>
-                  </div>
-                  <div>
-                    <span>Priority</span>
-                    <strong className={`priority-text ${priorityTone[item.priority]}`}>{item.priority}</strong>
-                  </div>
-                  <div>
-                    <span>Vendor</span>
-                    <strong>{item.vendor}</strong>
-                  </div>
-                  <div>
-                    <span>Submitted</span>
-                    <strong>{item.submittedAt}</strong>
-                  </div>
-                </div>
-
-                <p className="request-note">{item.lastUpdate}</p>
-              </button>
-            ))}
-          </div>
-        </section>
-
-        <section className="panel detail-panel">
-          <div className="panel-head sticky-head">
-            <div>
-              <p className="section-kicker">Request detail</p>
-              <h2>{selectedRequest.title}</h2>
-            </div>
-            <div className="tone-group">
-              <span className={`tone-pill ${statusTone[selectedRequest.status]}`}>{selectedRequest.status}</span>
-              <span className={`tone-pill ${priorityTone[selectedRequest.priority]}`}>{selectedRequest.priority}</span>
-            </div>
-          </div>
-
-          <div className="detail-grid">
-            <article className="detail-card">
-              <span>Tenant</span>
-              <strong>{selectedRequest.tenant}</strong>
-              <p>{selectedRequest.property} · Unit {selectedRequest.unit}</p>
-            </article>
-            <article className="detail-card">
-              <span>Category</span>
-              <strong>{selectedRequest.category}</strong>
-              <p>Preferred access: {selectedRequest.accessWindow}</p>
-            </article>
-            <article className="detail-card">
-              <span>Vendor</span>
-              <strong>{selectedRequest.vendor}</strong>
-              <p>Current estimate: {selectedRequest.estimate}</p>
-            </article>
-          </div>
-
-          <article className="content-block">
-            <div className="card-head compact-head">
-              <div>
-                <p className="section-kicker">Description</p>
-                <h3>What happened</h3>
+                <span className={`status-pill tone-${statusTone[selectedRequest.status]}`}>{selectedRequest.status}</span>
               </div>
-            </div>
-            <p className="card-copy">{selectedRequest.description}</p>
-          </article>
 
-          <article className="content-block">
-            <div className="card-head compact-head">
-              <div>
-                <p className="section-kicker">Timeline</p>
-                <h3>Shared repair history</h3>
-              </div>
-            </div>
-            <div className="timeline-list">
-              {selectedRequest.timeline.map((item) => (
-                <div key={`${item.label}-${item.time}`} className="timeline-item">
-                  <div className="timeline-dot" />
-                  <div>
-                    <div className="timeline-topline">
-                      <strong>{item.label}</strong>
-                      <span>{item.time}</span>
-                    </div>
-                    <p>{item.note}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </article>
-        </section>
-
-        <section className="panel side-panel">
-          <div className="stack-panel">
-            <div className="panel-head compact-head">
-              <div>
-                <p className="section-kicker">Vendor coordination</p>
-                <h2>Active vendors</h2>
-              </div>
-            </div>
-            <div className="vendor-list">
-              {vendors.map((vendor) => (
-                <article key={vendor.name} className="vendor-card">
-                  <div className="vendor-topline">
-                    <strong>{vendor.name}</strong>
-                    <span>{vendor.specialty}</span>
-                  </div>
-                  <p>{vendor.eta}</p>
-                  <small>{vendor.load}</small>
+              <div className="detail-grid">
+                <article>
+                  <span>Property</span>
+                  <strong>
+                    {selectedRequest.property} · {selectedRequest.unit}
+                  </strong>
                 </article>
-              ))}
-            </div>
-          </div>
+                <article>
+                  <span>Tenant</span>
+                  <strong>{selectedRequest.tenant}</strong>
+                </article>
+                <article>
+                  <span>Assigned vendor</span>
+                  <strong>{selectedRequest.vendor}</strong>
+                </article>
+                <article>
+                  <span>Estimate</span>
+                  <strong>{selectedRequest.estimate}</strong>
+                </article>
+              </div>
 
-          <div className="stack-panel">
-            <div className="panel-head compact-head">
-              <div>
-                <p className="section-kicker">Tenant view</p>
-                <h2>Submission flow</h2>
-              </div>
-            </div>
+              <p className="detail-description">{selectedRequest.description}</p>
 
-            <div className={`tenant-form-card ${showTenantForm ? 'expanded' : ''}`}>
-              <div className="fake-form-grid">
-                <label>
-                  <span>Issue title</span>
-                  <input value="Water leaking from ceiling vent" readOnly />
-                </label>
-                <label>
-                  <span>Property / Unit</span>
-                  <input value="Maple Court · 3A" readOnly />
-                </label>
-                <label>
-                  <span>Category</span>
-                  <input value="Plumbing" readOnly />
-                </label>
-                <label>
-                  <span>Urgency</span>
-                  <input value="High" readOnly />
-                </label>
-                <label className="full-span">
-                  <span>Description</span>
-                  <textarea value="Leak started this morning. Ceiling is damp and dripping near the vent. Photos attached." readOnly />
-                </label>
+              <div className="timeline-block">
+                <div className="timeline-header">
+                  <h3>Shared timeline</h3>
+                  <span>{selectedRequest.submittedAt}</span>
+                </div>
+
+                <div className="timeline-list">
+                  {selectedRequest.timeline.map((event) => (
+                    <article key={`${event.label}-${event.time}`} className="timeline-item">
+                      <div className="timeline-dot" />
+                      <div>
+                        <strong>{event.label}</strong>
+                        <p>{event.note}</p>
+                      </div>
+                      <time>{event.time}</time>
+                    </article>
+                  ))}
+                </div>
               </div>
-              <div className="upload-row">
-                <div className="upload-box">Photo 1</div>
-                <div className="upload-box">Photo 2</div>
-                <div className="upload-box ghost">+ add image</div>
+            </section>
+
+            <section className="lower-grid">
+              <div className="card-surface vendor-panel">
+                <div className="panel-header compact">
+                  <div>
+                    <p className="eyebrow">Vendor coordination</p>
+                    <h3>Active partners</h3>
+                  </div>
+                </div>
+
+                <div className="vendor-list">
+                  {vendors.map((vendor) => (
+                    <article key={vendor.name} className="vendor-card">
+                      <div>
+                        <strong>{vendor.name}</strong>
+                        <p>{vendor.specialty}</p>
+                      </div>
+                      <div className="vendor-meta">
+                        <span>{vendor.eta}</span>
+                        <span>{vendor.load}</span>
+                      </div>
+                    </article>
+                  ))}
+                </div>
               </div>
-              <button className="primary-button full-width">Submit maintenance request</button>
-            </div>
+
+              {showTenantForm ? (
+                <div className="card-surface intake-panel">
+                  <div className="panel-header compact">
+                    <div>
+                      <p className="eyebrow">Tenant view</p>
+                      <h3>Simple intake form</h3>
+                    </div>
+                  </div>
+
+                  <div className="intake-form">
+                    <label>
+                      Issue title
+                      <input value="Kitchen sink leak under cabinet" readOnly />
+                    </label>
+                    <label>
+                      Describe the issue
+                      <textarea value="Water dripping under sink. Cabinet floor is wet and getting worse." readOnly />
+                    </label>
+                    <div className="inline-fields">
+                      <label>
+                        Unit
+                        <input value="2B" readOnly />
+                      </label>
+                      <label>
+                        Access
+                        <input value="Tomorrow 1pm–4pm" readOnly />
+                      </label>
+                    </div>
+                    <button className="primary-button full">Submit request</button>
+                  </div>
+                </div>
+              ) : null}
+            </section>
           </div>
         </section>
-      </section>
+      </div>
     </div>
   )
 }
