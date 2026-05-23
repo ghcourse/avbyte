@@ -137,7 +137,14 @@ const workflowSteps = [
   },
 ]
 
-const navItems = ['Overview', 'Requests', 'Tenants', 'Vendors', 'Messages', 'Analytics']
+const navItems = [
+  { label: 'Overview', active: false },
+  { label: 'Requests', active: true },
+  { label: 'Leases', active: false },
+  { label: 'Vendors', active: false },
+  { label: 'Messages', active: false },
+  { label: 'Reports', active: false },
+]
 
 const statusOrder: Status[] = ['New', 'Acknowledged', 'Scheduled', 'In Progress', 'Waiting on Parts', 'Completed']
 const statusTone: Record<Status, string> = {
@@ -194,10 +201,10 @@ function App() {
           <div className="sidebar-group">
             <span className="sidebar-label">Workspace</span>
             <div className="sidebar-nav">
-              {navItems.map((item, index) => (
-                <button key={item} className={`sidebar-item ${index === 1 ? 'active' : ''}`}>
+              {navItems.map((item) => (
+                <button key={item.label} className={`sidebar-item ${item.active ? 'active' : ''}`}>
                   <span className="sidebar-icon" />
-                  {item}
+                  {item.label}
                 </button>
               ))}
             </div>
@@ -213,8 +220,8 @@ function App() {
         <main className="app-shell">
           <section className="topbar premium-bar">
             <div>
-              <p className="eyebrow">Maintenance command center</p>
-              <h1 className="page-title">Request operations</h1>
+              <p className="eyebrow">Applications-style workspace</p>
+              <h1 className="page-title">Maintenance Requests</h1>
             </div>
 
             <div className="topbar-actions">
@@ -235,14 +242,14 @@ function App() {
               </p>
 
               <div className="hero-actions">
-                <a className="primary-button" href="#dashboard">Open dashboard</a>
+                <a className="primary-button" href="#dashboard">Open queue</a>
                 <button className="secondary-button" onClick={() => setShowTenantForm((value) => !value)}>
                   {showTenantForm ? 'Hide resident intake' : 'Show resident intake'}
                 </button>
               </div>
 
               <div className="hero-footnote">
-                <span>Designed for boutique operators, premium rentals, and high-expectation resident experiences.</span>
+                <span>Structured like a real operations workspace: quick scanning, compact records, and always-visible status.</span>
               </div>
 
               <div className="stats-grid">
@@ -334,9 +341,9 @@ function App() {
                 <div className="table-head request-table-row">
                   <span>Request</span>
                   <span>Property</span>
-                  <span>Resident</span>
+                  <span>Created</span>
                   <span>Status</span>
-                  <span>Priority</span>
+                  <span>Next</span>
                 </div>
 
                 <div className="request-list table-list">
@@ -354,9 +361,13 @@ function App() {
                       <span>
                         {request.property} · {request.unit}
                       </span>
-                      <span>{request.tenant}</span>
+                      <span>{request.submittedAt}</span>
                       <span className={`status-pill tone-${statusTone[request.status]}`}>{request.status}</span>
-                      <span className={`status-pill tone-${priorityTone[request.priority]}`}>{request.priority}</span>
+                      <div className="table-actions">
+                        <span className={`mini-dot tone-bg-${statusTone[request.status]}`} />
+                        <span className={`mini-dot tone-bg-${priorityTone[request.priority]}`} />
+                        <span className="mini-dot tone-bg-slate" />
+                      </div>
                     </button>
                   ))}
                 </div>
